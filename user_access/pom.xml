@@ -8,9 +8,13 @@
     </parent>
 
     <artifactId>user_access</artifactId>
-    <packaging>jar</packaging>
+    <packaging>pom</packaging>
 
     <name>user_access</name>
+    
+    <modules>
+        <module>user_access.domain</module>
+    </modules>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -18,5 +22,10 @@
 
     <dependencies>
 
+        <dependency>
+            <groupId>ectimel</groupId>
+            <artifactId>shared</artifactId>
+            <version>${project.version}</version>
+        </dependency>
     </dependencies>
 </project>
