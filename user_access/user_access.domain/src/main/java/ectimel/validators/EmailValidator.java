@@ -1,6 +1,5 @@
-package ectimel.value_objets;
+package ectimel.validators;
 
-import ectimel.validators.Validator;
 
 public class EmailValidator implements Validator<String> {
     @Override

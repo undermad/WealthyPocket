@@ -1,6 +1,7 @@
 package ectimel.value_objets;
 
 import ectimel.exceptions.ValueNotValid;
+import ectimel.validators.EmailValidator;
 
 public record Email(String email) {
     public static final EmailValidator VALIDATOR = new EmailValidator();

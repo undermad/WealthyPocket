@@ -1,6 +1,8 @@
 package ectimel.entities;
 
+import ectimel.exceptions.PasswordNotValidException;
 import ectimel.value_objets.Email;
+import ectimel.value_objets.Password;
 import ectimel.value_objets.UserId;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.EmbeddedId;
@@ -15,15 +17,19 @@ public class User {
     @Embedded
     private Email email;
     
-
+    @Embedded
+    private Password password;
+    
+    
     protected User() {
-
+        // only for hibernate
     }
-
-    public User(Email email) {
-        userId = new UserId();
-        this.email = email;
+    
+    public boolean validatePassword(String password) {
+        if(!this.password.password().equals(password)) {
+            throw new PasswordNotValidException();
+        }
+        return true;
     }
-
     
 }
