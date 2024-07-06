@@ -2,7 +2,7 @@ package ectimel.validators;
 
 public class PasswordValidator implements Validator<String> {
     
-    // Check if password is BCrypt encoded
+    // Check if value is BCrypt encoded
     
     @Override
     public boolean isValid(String value) {

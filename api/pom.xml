@@ -72,6 +72,12 @@
             <version>0.12.6</version>
             <scope>runtime</scope>
         </dependency>
+
+        <dependency>
+            <groupId>ectimel</groupId>
+            <artifactId>user_access.infrastructure</artifactId>
+            <version>${project.version}</version>
+        </dependency>
         
         
     </dependencies>

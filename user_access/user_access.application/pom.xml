@@ -1,33 +1,29 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>ectimel</groupId>
-        <artifactId>eWallet</artifactId>
+        <artifactId>user_access</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>user_access</artifactId>
-    <packaging>pom</packaging>
-
-    <name>user_access</name>
-    
-    <modules>
-        <module>user_access.domain</module>
-        <module>user_access.application</module>
-        <module>user_access.infrastructure</module>
-    </modules>
+    <artifactId>user_access.application</artifactId>
 
     <properties>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
-
+    
     <dependencies>
 
         <dependency>
             <groupId>ectimel</groupId>
-            <artifactId>shared</artifactId>
+            <artifactId>user_access.domain</artifactId>
             <version>${project.version}</version>
         </dependency>
     </dependencies>
+
 </project>

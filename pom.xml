@@ -32,6 +32,7 @@
         <module>wallet</module>
         <module>api</module>
         <module>user_access</module>
+        <module>user_access/user_access.infrastructure</module>
     </modules>
 
     <scm>
