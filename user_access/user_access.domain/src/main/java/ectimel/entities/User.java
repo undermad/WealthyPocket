@@ -1,5 +1,6 @@
 package ectimel.entities;
 
+import ectimel.aggregates.AggregateRoot;
 import ectimel.exceptions.NullException;
 import ectimel.exceptions.PasswordNotValidException;
 import ectimel.value_objets.Email;
@@ -11,10 +12,7 @@ import lombok.Getter;
 @Getter
 @Entity
 @Table(name = "users", schema = "user_access")
-public class User {
-
-    @EmbeddedId
-    private UserId id;
+public class User extends AggregateRoot<UserId> {
 
     @Embedded
     @AttributeOverride(name = "value", column = @Column (name = "email", unique = true, nullable = false))
@@ -29,8 +27,8 @@ public class User {
         // only for hibernate
     }
 
-    public boolean validatePassword(String password) {
-        if (this.password.value().equals(password)) {
+    public boolean validatePassword(Password password) {
+        if (this.password.equals(password)) {
             return true;
         }
         throw new PasswordNotValidException();
@@ -44,10 +42,4 @@ public class User {
     }
 
 
-    @Override
-    public boolean equals(Object obj) {
-        if(this == obj) return true;
-        if(obj == null || getClass() == obj.getClass()) return false;
-        return ((User) obj).id.id().equals(this.id.id());
-    }
 }

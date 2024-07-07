@@ -3,17 +3,16 @@ package ectimel.aggregates;
 import java.lang.reflect.Field;
 import java.util.Objects;
 
+// Value Objects
+// 1. Measures, quantities, or describe something in the domain
+// 2. They are immutable 
+// 3. Are equal if values are equal. They don't contain id.
+// 4. Side effect free functions
+
 public abstract class ValueObject {
-    
-    // Value Objects
-    // 1. Measures, quantities, or describe something in the domain
-    // 2. They are immutable 
-    // 3. Are equal if values are equal
-    // 4. Side effect free functions
 
     @Override
     public boolean equals(Object obj) {
-        
         
         if (this == obj) {
             return true;
@@ -58,4 +57,6 @@ public abstract class ValueObject {
 
         return result;
     }
+
+
 }
