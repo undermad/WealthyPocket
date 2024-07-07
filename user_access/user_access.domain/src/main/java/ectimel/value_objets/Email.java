@@ -8,7 +8,7 @@ import jakarta.persistence.Transient;
 import lombok.Getter;
 
 @Getter
-public final class Email extends ValueObject {
+public class Email extends ValueObject {
 
     private String value;
     

@@ -1,22 +1,22 @@
 package ectimel.value_objets;
 
+import ectimel.aggregates.ValueObject;
 import ectimel.exceptions.ValueNotValid;
 import ectimel.validators.PasswordValidator;
+import lombok.Getter;
 
-public record Password(String value) {
+@Getter
+public class Password extends ValueObject {
+    
+    private String value;
     
     public static final PasswordValidator PASSWORD_VALIDATOR = new PasswordValidator();
     
-    public Password {
+    public Password(String value) {
         if(!PASSWORD_VALIDATOR.isValid(value)) {
             throw new ValueNotValid("Password is not valid. Make sure is properly encrypted.");
         }
+        this.value = value;
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if(this == obj) return true;
-        if(obj == null || this.getClass() != obj.getClass()) return false;
-        return ((Password) obj).value().equals(this.value);
-    }
 }
