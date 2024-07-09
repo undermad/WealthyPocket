@@ -1,4 +1,4 @@
-package ectimel.value_objets;
+package ectimel.value_objects;
 
 import ectimel.aggregates.ValueObject;
 import ectimel.exceptions.ValueNotValid;

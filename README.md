@@ -11,3 +11,4 @@
 - https://github.com/kgrzybek/modular-monolith-with-ddd/tree/master
 - https://www.youtube.com/watch?v=NzcZcim9tp8&t=13133s
 - https://www.youtube.com/watch?v=vVZl3pfwyfM
+- https://www.youtube.com/watch?v=7LFxWgfJEeI&list=PLzYkqgWkHPKDpXETRRsFv2F9ht6XdAF3v&index=3

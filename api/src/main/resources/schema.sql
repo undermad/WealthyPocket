@@ -4,5 +4,29 @@ CREATE TABLE IF NOT EXISTS user_access.users
 (
     id       UUID PRIMARY KEY,
     email    VARCHAR(255) NOT NULL UNIQUE,
-    password VARCHAR(255) NOT NULL
+    password VARCHAR(255) NOT NULL,
+    created_on TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    updated_on TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
+
+
+CREATE TABLE IF NOT EXISTS user_access.roles 
+(
+    id      INTEGER PRIMARY KEY,
+    name    VARCHAR(255) NOT NULL UNIQUE
+);
+
+INSERT INTO user_access.roles (id, name) 
+VALUES (1, 'Admin'),
+       (2, 'User')
+ON CONFLICT (id) DO NOTHING;
+
+CREATE TABLE IF NOT EXISTS user_access.user_roles 
+(
+    user_id UUID NOT NULL,
+    role_id INTEGER NOT NULL,
+    PRIMARY KEY (user_id, role_id),
+    FOREIGN KEY (user_id) references user_access.users (id) ON DELETE CASCADE,
+    FOREIGN KEY (role_id) references user_access.roles (id) ON DELETE CASCADE
+)
+

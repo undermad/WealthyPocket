@@ -1,4 +1,4 @@
-package ectimel.value_objets;
+package ectimel.value_objects;
 
 import ectimel.aggregates.ValueObject;
 import ectimel.exceptions.NullIdException;
@@ -14,7 +14,6 @@ public class UserId extends ValueObject
     private UUID id;
     
     protected UserId () {
-        this.id = UUID.randomUUID();
         // hibernate will override id with actual id from database.
     }
     

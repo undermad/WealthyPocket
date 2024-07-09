@@ -1,8 +1,11 @@
 package ectimel.aggregates;
 
 import jakarta.persistence.MappedSuperclass;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.io.Serializable;
+import java.time.Instant;
 
 // SOME RULES TO BE FOLLOW
 
@@ -13,6 +16,20 @@ import java.io.Serializable;
 // If id is equals, then aggregates are equal
 // Hashcode of aggregates with same id are same even if other values are different.
 
-public abstract class AggregateRoot<ID extends ValueObject & Serializable> extends Entity<ID> {
+@MappedSuperclass
+public abstract class AggregateRoot<ID extends ValueObject & Serializable> extends EntityObject<ID> {
+
+    public AggregateRoot() {
+        // for hibernate only
+    }
     
+    public AggregateRoot(ID id) {
+        super(id);
+    }
+
+    @CreationTimestamp
+    private Instant createdOn;
+
+    @UpdateTimestamp
+    private Instant updatedOn;
 }

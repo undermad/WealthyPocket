@@ -2,7 +2,6 @@ package ectimel.value_objects;
 
 
 import ectimel.exceptions.ValueNotValid;
-import ectimel.value_objets.Email;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
