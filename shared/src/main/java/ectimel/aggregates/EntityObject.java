@@ -14,7 +14,7 @@ import java.time.Instant;
 
 @Getter
 @MappedSuperclass
-public abstract class EntityObject<ID extends ValueObject & Serializable> {
+public abstract class EntityObject<ID extends Serializable> {
     
     @EmbeddedId
     private ID id;

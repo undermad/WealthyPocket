@@ -10,10 +10,18 @@ public class Main {
     
     public static void main(String[] args) {
 
-        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        var a  = new Test2("abca");
+        var b = new Test2("abca");
 
-        System.out.println(passwordEncoder.encode("123"));
+        var aa = new Test(a);
+        var bb = new Test(b);
         
-        System.out.println(UUID.randomUUID());
+
+        System.out.println(aa.equals(bb));
+        
     }
 }
+
+record Test(Test2 abc) {}
+
+record Test2(String abc) {}

@@ -2,20 +2,25 @@ package ectimel.commands.handlers;
 
 import ectimel.commands.RegisterUser;
 import ectimel.cqrs.CommandHandler;
+import ectimel.cqrs.Handler;
 import ectimel.entities.User;
 import ectimel.exceptions.UserAlreadyExistException;
 import ectimel.factories.AccountFactory;
 import ectimel.repositories.UserRepository;
 import ectimel.value_objects.Email;
 import ectimel.value_objects.Password;
+import org.springframework.beans.factory.annotation.Qualifier;
 
 
+@Handler
 public class RegisterUserHandler implements CommandHandler<RegisterUser> {
-
+    
     private final AccountFactory accountFactory;
+    
     private final UserRepository userRepository;
 
-    public RegisterUserHandler(AccountFactory accountFactory, UserRepository userRepository) {
+    
+    public RegisterUserHandler(@Qualifier("userFactory") AccountFactory accountFactory, UserRepository userRepository) {
         this.accountFactory = accountFactory;
         this.userRepository = userRepository;
     }
@@ -30,8 +35,6 @@ public class RegisterUserHandler implements CommandHandler<RegisterUser> {
         
         User newUser = accountFactory.createUser(email, password);
         userRepository.addAsync(newUser).join();
-        
-        
         
     }
 }

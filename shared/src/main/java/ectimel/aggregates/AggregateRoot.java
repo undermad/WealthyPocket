@@ -17,7 +17,7 @@ import java.time.Instant;
 // Hashcode of aggregates with same id are same even if other values are different.
 
 @MappedSuperclass
-public abstract class AggregateRoot<ID extends ValueObject & Serializable> extends EntityObject<ID> {
+public abstract class AggregateRoot<ID extends Serializable> extends EntityObject<ID> {
 
     public AggregateRoot() {
         // for hibernate only

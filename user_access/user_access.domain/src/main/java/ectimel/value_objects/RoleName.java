@@ -1,17 +1,11 @@
 package ectimel.value_objects;
 
-import ectimel.aggregates.ValueObject;
 import ectimel.exceptions.NullException;
-import lombok.Getter;
 
-@Getter
-public class RoleName extends ValueObject {
+public record RoleName(String value) {
     
-    private String value;
-
-    private RoleName(String value) {
+    public RoleName {
         if(value == null) throw new NullException("Value RoleName can not be null");
-        this.value = value;
     }
     
     public static RoleName createRegularUserName() {

@@ -1,24 +1,13 @@
 package ectimel.value_objects;
 
-import ectimel.aggregates.ValueObject;
 import ectimel.exceptions.NullIdException;
-import lombok.Getter;
 
 import java.io.Serializable;
-import java.util.UUID;
 
-@Getter
-public class RoleId extends ValueObject implements Serializable {
-    
-    private Integer id;
+public record RoleId(Integer id) implements Serializable {
 
-    protected RoleId () {
-        // hibernate will override id with actual id from database.
-    }
-
-    private RoleId(Integer id) {
+    public RoleId {
         if(id == null) throw new NullIdException(this.getClass());
-        this.id = id;
     }
     
     
