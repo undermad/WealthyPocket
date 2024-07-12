@@ -1,0 +1,13 @@
+
+###
+POST http://localhost:8181/api/v1
+Content-Type: application/json
+
+{
+  "email": "dtworek94@gmail.com",
+  "password": "domdomdom"
+}
+
+
+###
+GET http://localhost:8181/api/v1

@@ -1,6 +1,6 @@
 package ectimel.commands;
 
-import ectimel.cqrs.Command;
+import ectimel.cqrs.commands.Command;
 
-public record RegisterUser(String email, String encryptedPassword) implements Command {
+public record RegisterUser(String email, String password) implements Command {
 }

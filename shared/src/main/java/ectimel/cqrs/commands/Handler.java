@@ -1,4 +1,4 @@
-package ectimel.cqrs;
+package ectimel.cqrs.commands;
 
 import org.springframework.stereotype.Component;
 
