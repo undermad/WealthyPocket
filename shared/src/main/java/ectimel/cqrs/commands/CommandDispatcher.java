@@ -5,4 +5,7 @@ public interface CommandDispatcher {
     <TCommand extends Command> 
     void send(TCommand command);
     
+    <TResult> TResult send(ResultCommand<TResult> command);
+    
+    
 }

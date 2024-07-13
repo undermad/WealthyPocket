@@ -1,6 +1,6 @@
 package ectimel.commands;
 
-import ectimel.cqrs.commands.Command;
+import ectimel.cqrs.commands.ResultCommand;
 
-public record Authenticate(String email, String password) implements Command {
+public record Authenticate(String email, String password) implements ResultCommand<Boolean> {
 }
