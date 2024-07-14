@@ -1,5 +1,8 @@
 package ectimel.security.jwt;
 
+import ectimel.commands.ValidateJwt;
+import ectimel.cqrs.commands.CommandDispatcher;
+import ectimel.services.JwtProvider;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -18,11 +21,11 @@ import java.io.IOException;
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
-    private final JwtTokenProvider jwtProvider;
+    private final CommandDispatcher commandDispatcher;
     private final UserDetailsService userDetailsService;
 
-    public JwtAuthenticationFilter(JwtTokenProvider jwtProvider, UserDetailsService userDetailsService) {
-        this.jwtProvider = jwtProvider;
+    public JwtAuthenticationFilter(CommandDispatcher commandDispatcher, UserDetailsService userDetailsService) {
+        this.commandDispatcher = commandDispatcher;
         this.userDetailsService = userDetailsService;
     }
 
@@ -30,15 +33,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
 
-        String jwt = getTokenFromRequest(request);
+        var token = getTokenFromRequest(request);
 
-        //validate the token
-        if (StringUtils.hasText(jwt) && jwtProvider.validateToken(jwt)) {
-
-            String email = jwtProvider.getSubject(jwt);
-
-            UserDetails userDetails = userDetailsService.loadUserByUsername(email);
-            UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
+        if (StringUtils.hasText(token)) {
+            var email = commandDispatcher.send(new ValidateJwt(token)).email();
+            var userDetails = userDetailsService.loadUserByUsername(email);
+            var authenticationToken = new UsernamePasswordAuthenticationToken(
                     userDetails,
                     null,
                     userDetails.getAuthorities());
@@ -49,8 +49,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         filterChain.doFilter(request, response);
     }
-    
-    
+
     private String getTokenFromRequest(HttpServletRequest request) {
         String bearerToken = request.getHeader("Authorization");
         if (StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")) {
@@ -58,5 +57,5 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         }
         return null;
     }
-    
+
 }

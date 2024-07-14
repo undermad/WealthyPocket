@@ -1,18 +1,22 @@
 package ectimel.modules.user_access.controllers;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Component;
+
 public class Main {
     
     
+     
+    
     public static void main(String[] args) {
 
-        var a  = new Test2("abca");
-        var b = new Test2("abca");
-
-        var aa = new Test(a);
-        var bb = new Test(b);
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         
+        
+        String aa = "domdomdom";
 
-        System.out.println(aa.equals(bb));
+        
         
     }
 }

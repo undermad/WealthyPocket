@@ -1,4 +1,5 @@
-package ectimel.security.jwt;
+package ectimel.services;
+
 import ectimel.exceptions.UnauthorizedException;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
@@ -10,17 +11,17 @@ import javax.crypto.SecretKey;
 import java.time.Instant;
 import java.util.Date;
 
-
 @Component
-public class JwtTokenProvider {
-    
+public class JwtProviderImpl implements JwtProvider {
+
 
     @Value("${app.jwt-secret}")
     private String jwtSecret;
-    
+
     @Value("${app-jwt-expiration-millisecond}")
     private String jwtExpirationTime;
 
+    @Override
     public String generateToken(String email) {
         Date expirationDate = Date.from(Instant.now().plusMillis(Long.parseLong(jwtExpirationTime)));
         return Jwts.builder()
@@ -37,6 +38,7 @@ public class JwtTokenProvider {
         return Keys.hmacShaKeyFor(Decoders.BASE64.decode(jwtSecret));
     }
 
+    @Override
     public String getSubject(String jwt) {
         Claims claims = Jwts.parser()
                 .verifyWith(key())
@@ -49,6 +51,7 @@ public class JwtTokenProvider {
 
 
 
+    @Override
     public Boolean validateToken(String token) {
         try {
             Jwts.parser()
@@ -67,5 +70,4 @@ public class JwtTokenProvider {
 
         return true;
     }
-    
 }

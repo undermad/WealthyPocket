@@ -2,8 +2,8 @@ package ectimel.entities;
 
 import ectimel.aggregates.AggregateRoot;
 import ectimel.exceptions.NullException;
-import ectimel.exceptions.PasswordNotValidException;
 import ectimel.exceptions.RoleAlreadyGrantedException;
+import ectimel.exceptions.UnauthorizedException;
 import ectimel.value_objects.Email;
 import ectimel.value_objects.Password;
 import ectimel.value_objects.UserId;
@@ -44,7 +44,7 @@ public class User extends AggregateRoot<UserId> {
 
     public boolean validatePassword(Password password) {
         if (this.password.equals(password)) return true;
-        throw new PasswordNotValidException();
+        throw new UnauthorizedException();
     }
     
     public void changePassword(Password newPassword) {
