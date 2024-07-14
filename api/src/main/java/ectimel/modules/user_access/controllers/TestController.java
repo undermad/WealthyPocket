@@ -1,4 +1,4 @@
-package ectimel.controllers;
+package ectimel.modules.user_access.controllers;
 
 import ectimel.commands.RegisterUser;
 import ectimel.cqrs.commands.CommandDispatcher;
@@ -6,7 +6,6 @@ import ectimel.entities.User;
 import ectimel.repositories.UserRepository;
 import ectimel.value_objects.Email;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.web.bind.annotation.*;
 
 

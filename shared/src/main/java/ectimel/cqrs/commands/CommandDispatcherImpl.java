@@ -19,7 +19,8 @@ public class CommandDispatcherImpl implements CommandDispatcher, ApplicationCont
         
         if(commandHandlerBean instanceof CommandHandler<?>) {
             var handler = (CommandHandler<TCommand>) commandHandlerBean;
-            handler.handleCommand(command);
+            handler.handle(command);
+            return;
         } 
         
         throw new HandlerNotFoundException(command.getClass().getName());
@@ -40,7 +41,7 @@ public class CommandDispatcherImpl implements CommandDispatcher, ApplicationCont
     }
 
     private Object getHandlerBean(Command command) {
-        var commandName = command.getClass().getName();
+        var commandName = command.getClass().getSimpleName();
         commandName = commandName.substring(0, 1).toLowerCase() + commandName.substring(1);
         return applicationContext.getBean(commandName + "Handler");
     }

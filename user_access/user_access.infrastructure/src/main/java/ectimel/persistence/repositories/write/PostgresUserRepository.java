@@ -28,9 +28,12 @@ public class PostgresUserRepository implements UserRepository {
         TypedQuery<User> query = entityManager
                 .createQuery("SELECT u FROM User u WHERE u.email = :email", User.class);
         
-        query.setParameter("email", email.value());
+        query.setParameter("email", email);
         
-        return CompletableFuture.completedFuture(query.getSingleResult());
+        var users = query.getResultList();
+        var user = users.isEmpty() ? null : users.getFirst();
+        
+        return CompletableFuture.completedFuture(user);
     }
 
     @Override

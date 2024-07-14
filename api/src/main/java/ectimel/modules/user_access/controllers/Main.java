@@ -1,9 +1,4 @@
-package ectimel.controllers;
-
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-
-import java.util.UUID;
+package ectimel.modules.user_access.controllers;
 
 public class Main {
     

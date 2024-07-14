@@ -27,7 +27,7 @@ public class RegisterUserHandler implements CommandHandler<RegisterUser> {
     }
 
     @Override
-    public void handleCommand(RegisterUser command) {
+    public void handle(RegisterUser command) {
         Email email = new Email(command.email());
         Password password = new Password(passwordEncoder.encode(command.password()));
 

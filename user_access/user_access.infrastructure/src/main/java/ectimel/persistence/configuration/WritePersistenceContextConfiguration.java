@@ -37,14 +37,14 @@ public class WritePersistenceContextConfiguration {
     public LocalContainerEntityManagerFactoryBean writeEntityManagerFactoryUserAccess(
             EntityManagerFactoryBuilder builder, DataSource dataSource, JpaProperties jpaProperties) {
                 return builder.dataSource(dataSource)
-                        .packages("ectimel.persistence.repositories.write")
+                        .packages("ectimel.entities")
                         .persistenceUnit("puWriteUserAccess")
                         .properties(jpaProperties.getProperties())
                         .build();
     }
 
     @Bean(name = "writeTransactionManagerUserAccess")
-    public PlatformTransactionManager transactionManager1(
+    public PlatformTransactionManager transactionManager(
             @Qualifier("writeEntityManagerFactoryUserAccess") EntityManagerFactory entityManagerFactory) {
         return new JpaTransactionManager(entityManagerFactory);
     }

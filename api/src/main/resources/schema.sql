@@ -5,8 +5,8 @@ CREATE TABLE IF NOT EXISTS user_access.users
     id       UUID PRIMARY KEY,
     email    VARCHAR(255) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
-    created_on TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-    updated_on TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    createdon TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    updatedon TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
 
