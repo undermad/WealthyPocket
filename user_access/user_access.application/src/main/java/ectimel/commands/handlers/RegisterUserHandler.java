@@ -28,16 +28,16 @@ public class RegisterUserHandler implements CommandHandler<RegisterUser> {
 
     @Override
     public void handle(RegisterUser command) {
-        Email email = new Email(command.email());
-        Password password = new Password(passwordEncoder.encode(command.password()));
-
+        var email = new Email(command.email());
+        
         User user = userRepository.getAsync(email).join();
         if (user != null) {
             throw new UserAlreadyExistException(email);
         }
-
-        User newUser = accountFactory.createUser(email, password);
+        
+        var password = new Password(passwordEncoder.encode(command.password()));
+        
+        var newUser = accountFactory.createUser(email, password);
         userRepository.addAsync(newUser).join();
-
     }
 }

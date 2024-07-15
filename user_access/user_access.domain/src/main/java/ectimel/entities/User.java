@@ -24,7 +24,7 @@ public class User extends AggregateRoot<UserId> {
     @AttributeOverride(name = "value", column = @Column (name = "password", nullable = false))
     private Password password;
     
-    @ManyToMany()
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_roles",
             schema = "user_access",
             joinColumns = @JoinColumn(name = "user_id"),

@@ -28,7 +28,7 @@ public class ReadPersistenceContextConfiguration {
     public LocalContainerEntityManagerFactoryBean readEntityManagerFactoryUserAccess(
             EntityManagerFactoryBuilder builder, DataSource dataSource, JpaProperties jpaProperties) {
         return builder.dataSource(dataSource)
-                .packages("ectimel.persistence.repositories.read")
+                .packages("ectimel.entities")
                 .persistenceUnit("puReadUserAccess")
                 .properties(jpaProperties.getProperties())
                 .build();

@@ -30,23 +30,12 @@ public class AuthenticateHandler implements ResultCommandHandler<Authenticate, L
 
     @Override
     public LoginResponse send(Authenticate command) {
-
-//        var user = repository.getAsync(new Email(command.email())).join();
-//        if(user.validatePassword(new Password(passwordEncoder.encode(command.password())))) {
-//            System.out.println(command.password());
-//            System.out.println(user.getPassword().value());
-//        }
-        
-        
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                 command.email(),
                 command.password())
         );
         SecurityContextHolder.getContext().setAuthentication(authentication);
         return new LoginResponse(jwtProvider.generateToken(command.email()), "Bearer");
-        
-        
-//        throw new UnauthorizedException();
     }
 
 }

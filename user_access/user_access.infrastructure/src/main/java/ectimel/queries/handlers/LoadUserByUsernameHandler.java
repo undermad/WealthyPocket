@@ -5,6 +5,7 @@ import ectimel.cqrs.queries.QueryHandler;
 import ectimel.dto.UserDetailsDto;
 import ectimel.entities.User;
 import ectimel.queries.LoadUserByUsername;
+import ectimel.value_objects.Email;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 
@@ -26,7 +27,7 @@ public class LoadUserByUsernameHandler implements QueryHandler<LoadUserByUsernam
                         """,
                 User.class
         );
-        typedQuery.setParameter("email", query.email());
+        typedQuery.setParameter("email", new Email(query.email()));
 
         var user = typedQuery.getSingleResult();
 

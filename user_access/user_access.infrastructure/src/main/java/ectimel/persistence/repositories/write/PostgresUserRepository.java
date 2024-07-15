@@ -38,9 +38,7 @@ public class PostgresUserRepository implements UserRepository {
 
     @Override
     public CompletableFuture<Void> addAsync(User user) {
-        
         entityManager.persist(user);
-        
         return CompletableFuture.completedFuture(null);
     }
 

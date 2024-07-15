@@ -17,8 +17,8 @@ CREATE TABLE IF NOT EXISTS user_access.roles
 );
 
 INSERT INTO user_access.roles (id, name) 
-VALUES (1, 'Admin'),
-       (2, 'User')
+VALUES (1, 'ROLE_ADMIN'),
+       (2, 'ROLE_USER')
 ON CONFLICT (id) DO NOTHING;
 
 CREATE TABLE IF NOT EXISTS user_access.user_roles 

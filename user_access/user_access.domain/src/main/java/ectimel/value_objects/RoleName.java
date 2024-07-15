@@ -9,11 +9,11 @@ public record RoleName(String value) {
     }
     
     public static RoleName createRegularUserName() {
-        return new RoleName("User");
+        return new RoleName("ROLE_USER");
     }
     
     public static RoleName createAdminName() {
-        return new RoleName("Admin");
+        return new RoleName("ROLE_ADMIN");
     }
     
 }
