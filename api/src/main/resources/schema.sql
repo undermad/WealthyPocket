@@ -28,5 +28,19 @@ CREATE TABLE IF NOT EXISTS user_access.user_roles
     PRIMARY KEY (user_id, role_id),
     FOREIGN KEY (user_id) references user_access.users (id) ON DELETE CASCADE,
     FOREIGN KEY (role_id) references user_access.roles (id) ON DELETE CASCADE
-)
+);
+
+CREATE TABLE IF NOT EXISTS user_access.outbox 
+(
+    id UUID PRIMARY KEY,
+    aggregate_id UUID NOT NULL,
+    aggregate_type varchar(255) NOT NULL,
+    event_type varchar(255) NOT NULL,
+    payload JSONB NOT NULL,
+    processed BOOLEAN DEFAULT FALSE,
+    processed_at TIMESTAMPTZ DEFAULT NULL,
+    createdon TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+CREATE INDEX IF NOT EXISTS idx_processed ON user_access.outbox (processed, processed_at);
 

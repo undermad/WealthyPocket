@@ -7,7 +7,9 @@ import ectimel.entities.User;
 import ectimel.queries.LoadUserByUsername;
 import ectimel.value_objects.Email;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.PersistenceUnit;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
@@ -18,9 +20,10 @@ public class LoadUserByUsernameHandler implements QueryHandler<LoadUserByUsernam
     @PersistenceContext(unitName = "puReadUserAccess")
     private EntityManager entityManager;
 
+    
     @Override
     public CompletableFuture<UserDetailsDto> handle(LoadUserByUsername query) {
-
+        
         var typedQuery = entityManager.createQuery(
                 """
                         SELECT u FROM User u WHERE u.email = :email
