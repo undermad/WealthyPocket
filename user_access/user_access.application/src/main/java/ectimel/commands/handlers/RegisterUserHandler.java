@@ -11,6 +11,7 @@ import ectimel.value_objects.Email;
 import ectimel.value_objects.Password;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.transaction.annotation.Transactional;
 
 
 @Handler
@@ -26,6 +27,7 @@ public class RegisterUserHandler implements CommandHandler<RegisterUser> {
         this.passwordEncoder = passwordEncoder;
     }
 
+    @Transactional("writeTransactionManagerUserAccess")
     @Override
     public void handle(RegisterUser command) {
         var email = new Email(command.email());

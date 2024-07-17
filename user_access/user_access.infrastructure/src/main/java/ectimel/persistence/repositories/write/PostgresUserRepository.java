@@ -13,7 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.concurrent.CompletableFuture;
 
 @Async
-@Transactional(transactionManager = "writeTransactionManagerUserAccess")
 @Repository
 public class PostgresUserRepository implements UserRepository {
     

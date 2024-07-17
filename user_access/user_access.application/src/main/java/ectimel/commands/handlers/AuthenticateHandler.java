@@ -14,7 +14,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 public class AuthenticateHandler implements ResultCommandHandler<Authenticate, LoginResponse> {
 
     private final JwtProvider jwtProvider;
-
     private final AuthenticationManager authenticationManager;
 
     public AuthenticateHandler(JwtProvider jwtProvider, AuthenticationManager authenticationManager) {

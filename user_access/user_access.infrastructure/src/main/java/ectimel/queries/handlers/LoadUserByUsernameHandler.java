@@ -10,35 +10,23 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.PersistenceUnit;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 @AsyncHandler
-public class LoadUserByUsernameHandler implements QueryHandler<LoadUserByUsername, UserDetailsDto> {
+public class LoadUserByUsernameHandler implements QueryHandler<LoadUserByUsername, UserDetails> {
 
-    @PersistenceContext(unitName = "puReadUserAccess")
-    private EntityManager entityManager;
+    private final UserDetailsService userDetailsService;
 
-    
+    public LoadUserByUsernameHandler(UserDetailsService userDetailsService) {
+        this.userDetailsService = userDetailsService;
+    }
+
     @Override
-    public CompletableFuture<UserDetailsDto> handle(LoadUserByUsername query) {
-        
-        var typedQuery = entityManager.createQuery(
-                """
-                        SELECT u FROM User u WHERE u.email = :email
-                        """,
-                User.class
-        );
-        typedQuery.setParameter("email", new Email(query.email()));
-
-        var user = typedQuery.getSingleResult();
-
-        return CompletableFuture.completedFuture(new UserDetailsDto(
-                user.getEmail().value(),
-                user.getPassword().value(),
-                user.getRoles().stream()
-                        .map(role -> role.getRoleName().value())
-                        .collect(Collectors.toSet())));
+    public CompletableFuture<UserDetails> handle(LoadUserByUsername query) {
+        return CompletableFuture.completedFuture(userDetailsService.loadUserByUsername(query.email()));
     }
 }

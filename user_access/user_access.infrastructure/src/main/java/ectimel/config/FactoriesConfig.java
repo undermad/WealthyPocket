@@ -15,7 +15,8 @@ public class FactoriesConfig {
         return new UserFactory();
     }
     
-    @Bean AccountFactory adminFactory() {
+    @Bean 
+    public AccountFactory adminFactory() {
         return new AdminFactory();
     }
     

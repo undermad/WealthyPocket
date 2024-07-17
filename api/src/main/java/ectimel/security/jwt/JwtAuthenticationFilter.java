@@ -2,6 +2,8 @@ package ectimel.security.jwt;
 
 import ectimel.commands.ValidateJwt;
 import ectimel.cqrs.commands.CommandDispatcher;
+import ectimel.cqrs.queries.QueryDispatcher;
+import ectimel.queries.LoadUserByUsername;
 import ectimel.services.JwtProvider;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -22,11 +24,11 @@ import java.io.IOException;
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final CommandDispatcher commandDispatcher;
-    private final UserDetailsService userDetailsService;
+    private final QueryDispatcher queryDispatcher;
 
-    public JwtAuthenticationFilter(CommandDispatcher commandDispatcher, UserDetailsService userDetailsService) {
+    public JwtAuthenticationFilter(CommandDispatcher commandDispatcher, QueryDispatcher queryDispatcher) {
         this.commandDispatcher = commandDispatcher;
-        this.userDetailsService = userDetailsService;
+        this.queryDispatcher = queryDispatcher;
     }
 
     @Override
@@ -37,7 +39,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         if (StringUtils.hasText(token)) {
             var email = commandDispatcher.send(new ValidateJwt(token)).email();
-            var userDetails = userDetailsService.loadUserByUsername(email);
+            var userDetails = queryDispatcher.query(new LoadUserByUsername(email)).join();
             var authenticationToken = new UsernamePasswordAuthenticationToken(
                     userDetails,
                     null,
