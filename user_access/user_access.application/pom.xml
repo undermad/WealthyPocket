@@ -24,6 +24,13 @@
             <artifactId>user_access.domain</artifactId>
             <version>${project.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>ectimel</groupId>
+            <artifactId>user_access.events</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
     </dependencies>
 
 </project>

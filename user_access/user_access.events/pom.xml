@@ -3,21 +3,14 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>ectimel</groupId>
-        <artifactId>eWallet</artifactId>
+        <artifactId>user_access</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>user_access</artifactId>
-    <packaging>pom</packaging>
+    <artifactId>user_access.events</artifactId>
+    <packaging>jar</packaging>
 
-    <name>user_access</name>
-    
-    <modules>
-        <module>user_access.domain</module>
-        <module>user_access.application</module>
-        <module>user_access.infrastructure</module>
-        <module>user_access.events</module>
-    </modules>
+    <name>user_access.events</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
