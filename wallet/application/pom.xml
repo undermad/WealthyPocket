@@ -7,7 +7,7 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>application</artifactId>
+    <artifactId>wallet.application</artifactId>
     <packaging>jar</packaging>
 
     <name>application</name>
@@ -20,7 +20,7 @@
 
         <dependency>
             <groupId>ectimel</groupId>
-            <artifactId>domain</artifactId>
+            <artifactId>wallet.domain</artifactId>
             <version>${project.version}</version>
         </dependency>
     </dependencies>

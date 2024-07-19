@@ -30,9 +30,13 @@
     <modules>
         <module>shared</module>
         <module>wallet</module>
+        <module>wallet/domain</module>
+        <module>wallet/application</module>
         <module>api</module>
         <module>user_access</module>
         <module>user_access/user_access.infrastructure</module>
+        <module>user_access/user_access.domain</module>
+        <module>user_access/user_access.application</module>
     </modules>
 
     <scm>

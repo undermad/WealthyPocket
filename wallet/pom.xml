@@ -13,10 +13,8 @@
     <name>wallet</name>
     
     <modules>
-        <module>infrastructure</module>
         <module>domain</module>
         <module>application</module>
-        <module>integration_events</module>
     </modules>
 
     <properties>
