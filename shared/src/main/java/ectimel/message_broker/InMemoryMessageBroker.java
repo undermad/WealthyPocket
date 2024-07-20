@@ -15,10 +15,18 @@ public class InMemoryMessageBroker implements MessageBroker {
 
     @Override
     public void publish(Event event) {
+
+        long startTime = System.nanoTime();
+        
         var subscribers = eventToSubscribers.get(event.getClass());
         if (subscribers != null) {
             subscribers.forEach(subscriber -> subscriber.update(event));
         }
+
+        long endTime = System.nanoTime();
+        long duration = endTime - startTime;
+        double durationInMilliseconds = duration / 1_000_000.0;
+        System.out.println("Execution time in milliseconds: " + durationInMilliseconds);
     }
 
     @Override

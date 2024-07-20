@@ -8,7 +8,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.scheduling.annotation.EnableAsync;
 
 @SpringBootApplication
-@EnableAsync
 public class EWalletApplication implements CommandLineRunner {
 	
 	private final MessageBroker messageBroker;
@@ -26,8 +25,16 @@ public class EWalletApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-
-		TestEvent testEvent = new TestEvent();
+		
+		
+		TestEvent testEvent = new TestEvent("First message");
 		messageBroker.publish(testEvent);
+
+		Thread.sleep(5000);
+
+		System.out.println("***********************************************************");
+		
+		TestEvent anotherEvent = new TestEvent("Second message");
+		messageBroker.publish(anotherEvent);
 	}
 }
