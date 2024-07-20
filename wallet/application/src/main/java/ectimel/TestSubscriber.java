@@ -1,28 +1,15 @@
 package ectimel;
 
-import ectimel.message_broker.MessageBroker;
-import ectimel.message_broker.Subscriber;
-import ectimel.message_broker.TestEvent;
-import jakarta.annotation.PostConstruct;
-import org.springframework.stereotype.Component;
+import ectimel.message_broker.*;
 
-@Component
-public class TestSubscriber implements Subscriber {
+@EventController
+public class TestSubscriber {
     
-    private final MessageBroker messageBroker;
-
-    public TestSubscriber(MessageBroker messageBroker) {
-        this.messageBroker = messageBroker;
+    
+    @EventListener(TestEvent.class)
+    public void onTestEvent(TestEvent event) {
+        System.out.println("Handling test event " + event.getClass().getSimpleName());
     }
 
-    @PostConstruct
-    public void subscribe() {
-        messageBroker.subscribe(TestEvent.class, this);
-    } 
-    
-    
-    @Override
-    public void update() {
-        System.out.println("Updating");
-    }
+
 }

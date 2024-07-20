@@ -2,6 +2,7 @@ package ectimel.message_broker;
 
 import org.springframework.stereotype.Component;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -16,7 +17,7 @@ public class InMemoryMessageBroker implements MessageBroker {
     public void publish(Event event) {
         var subscribers = eventToSubscribers.get(event.getClass());
         if (subscribers != null) {
-            subscribers.forEach(Subscriber::update);
+            subscribers.forEach(subscriber -> subscriber.update(event));
         }
     }
 
