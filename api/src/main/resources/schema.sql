@@ -33,8 +33,6 @@ CREATE TABLE IF NOT EXISTS user_access.user_roles
 CREATE TABLE IF NOT EXISTS user_access.outbox 
 (
     id UUID PRIMARY KEY,
-    aggregate_id UUID NOT NULL,
-    aggregate_type varchar(255) NOT NULL,
     event_type varchar(255) NOT NULL,
     payload JSONB NOT NULL,
     processed BOOLEAN DEFAULT FALSE,

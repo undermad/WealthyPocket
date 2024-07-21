@@ -1,7 +1,8 @@
 package ectimel.outbox;
 
-import jakarta.persistence.EntityManager;
+import ectimel.message_broker.Event;
 
 public interface OutboxRepository {
-    void save(EntityManager entityManager, String schemaName);
+    void save(Event event);
+    
 }
