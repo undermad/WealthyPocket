@@ -3,31 +3,25 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>ectimel</groupId>
-        <artifactId>eWallet</artifactId>
+        <artifactId>wallet</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>wallet</artifactId>
-    <packaging>pom</packaging>
+    <artifactId>wallet.infrastructure</artifactId>
+    <packaging>jar</packaging>
 
-    <name>wallet</name>
-    
-    <modules>
-        <module>domain</module>
-        <module>application</module>
-        <module>wallet.infrastructure</module>
-    </modules>
+    <name>wallet.infrastructure</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <dependencies>
-
         <dependency>
             <groupId>ectimel</groupId>
-            <artifactId>shared</artifactId>
+            <artifactId>wallet.application</artifactId>
             <version>${project.version}</version>
         </dependency>
+
     </dependencies>
 </project>

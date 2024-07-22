@@ -1,9 +1,14 @@
 package ectimel.persistence.configuration;
 
 
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
 import jakarta.persistence.EntityManagerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.orm.jpa.JpaProperties;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -35,7 +40,7 @@ public class WritePersistenceContextConfiguration {
 
     @Bean(name = "writeEntityManagerFactoryUserAccess")
     public LocalContainerEntityManagerFactoryBean writeEntityManagerFactoryUserAccess(
-            EntityManagerFactoryBuilder builder, DataSource dataSource, JpaProperties jpaProperties) {
+            EntityManagerFactoryBuilder builder, @Qualifier("userAccessDataSource") DataSource dataSource, JpaProperties jpaProperties) {
                 return builder.dataSource(dataSource)
                         .packages("ectimel.entities")
                         .persistenceUnit("puWriteUserAccess")

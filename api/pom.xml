@@ -38,7 +38,7 @@
 
         <dependency>
             <groupId>ectimel</groupId>
-            <artifactId>wallet.application</artifactId>
+            <artifactId>wallet.infrastructure</artifactId>
             <version>${project.version}</version>
         </dependency>
 

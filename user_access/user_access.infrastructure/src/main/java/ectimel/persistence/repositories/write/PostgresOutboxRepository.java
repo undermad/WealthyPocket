@@ -5,8 +5,10 @@ import ectimel.outbox.OutboxRepository;
 import ectimel.utils.JsonMapper;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
+import java.time.Instant;
 import java.util.UUID;
 
 @Repository("userAccessOutbox")
@@ -19,7 +21,7 @@ public class PostgresOutboxRepository implements OutboxRepository {
 
     private final String SCHEMA_NAME = "user_access";
 
-    public PostgresOutboxRepository(EntityManager entityManager, JsonMapper jsonMapper) {
+    public PostgresOutboxRepository(@Qualifier("readEntityManagerFactoryUserAccess") EntityManager entityManager, JsonMapper jsonMapper) {
         this.entityManager = entityManager;
         this.jsonMapper = jsonMapper;
     }
@@ -38,7 +40,7 @@ public class PostgresOutboxRepository implements OutboxRepository {
                 .setParameter("payload", jsonMapper.toJson(event))
                 .setParameter("processed", false)
                 .setParameter("processedAt", null)
-                .setParameter("createdon", java.time.Instant.now())
+                .setParameter("createdon", Instant.now())
                 .executeUpdate();
     }
     

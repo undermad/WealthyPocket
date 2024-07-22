@@ -1,4 +1,4 @@
-package ectimel.persistence.configuration;
+package ectimel.persistence;
 
 import jakarta.persistence.EntityManagerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -17,26 +17,26 @@ import javax.sql.DataSource;
 @Configuration
 @EnableJpaRepositories(
         basePackages = "ectimel.persistence.repositories.read",
-        entityManagerFactoryRef = "readEntityManagerFactoryUserAccess",
-        transactionManagerRef = "readTransactionManagerUserAccess"
+        entityManagerFactoryRef = "readEntityManagerFactoryWallet",
+        transactionManagerRef = "readTransactionManagerWallet"
 )
-public class ReadPersistenceContextConfiguration {
+public class ReadWalletPersistenceContextConfiguration {
 
 
     @Primary
-    @Bean(name = "readEntityManagerFactoryUserAccess")
+    @Bean(name = "readEntityManagerFactoryWallet")
     public LocalContainerEntityManagerFactoryBean readEntityManagerFactoryUserAccess(
-            EntityManagerFactoryBuilder builder, @Qualifier("userAccessDataSource") DataSource dataSource, JpaProperties jpaProperties) {
+            EntityManagerFactoryBuilder builder, @Qualifier("walletDataSource") DataSource dataSource, JpaProperties jpaProperties) {
         return builder.dataSource(dataSource)
                 .packages("ectimel.entities")
-                .persistenceUnit("puReadUserAccess")
+                .persistenceUnit("puReadWallet")
                 .properties(jpaProperties.getProperties())
                 .build();
     }
 
-    @Bean(name = "readTransactionManagerUserAccess")
+    @Bean(name = "readTransactionManagerWallet")
     public PlatformTransactionManager transactionManager(
-            @Qualifier("readEntityManagerFactoryUserAccess") EntityManagerFactory entityManagerFactory) {
+            @Qualifier("readEntityManagerFactoryWallet") EntityManagerFactory entityManagerFactory) {
         return new JpaTransactionManager(entityManagerFactory);
     }
 
