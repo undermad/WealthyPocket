@@ -1,7 +1,5 @@
 package ectimel.message_broker;
 
-import org.springframework.scheduling.annotation.Async;
-
 import java.lang.annotation.*;
 
 @Documented
