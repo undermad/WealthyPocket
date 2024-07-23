@@ -1,5 +1,7 @@
 package user_access.commands.handlers;
 
+import ectimel.outbox.OutboxRepository;
+import user_access.UserRegisteredEvent;
 import user_access.commands.RegisterUser;
 import ectimel.cqrs.commands.CommandHandler;
 import ectimel.cqrs.commands.Handler;
@@ -21,25 +23,32 @@ public class RegisterUserHandler implements CommandHandler<RegisterUser> {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public RegisterUserHandler(@Qualifier("userFactory") AccountFactory accountFactory, UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    private final OutboxRepository outboxRepository;
+
+    public RegisterUserHandler(@Qualifier("userFactory") AccountFactory accountFactory,
+                               UserRepository userRepository,
+                               PasswordEncoder passwordEncoder,
+                               @Qualifier("userAccessOutbox") OutboxRepository outboxRepository) {
         this.accountFactory = accountFactory;
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.outboxRepository = outboxRepository;
     }
 
     @Transactional("writeTransactionManagerUserAccess")
     @Override
     public void handle(RegisterUser command) {
         var email = new Email(command.email());
-        
-        User user = userRepository.getAsync(email).join();
+
+        User user = userRepository.getAsync(email);
         if (user != null) {
             throw new UserAlreadyExistException(email);
         }
-        
+
         var password = new Password(passwordEncoder.encode(command.password()));
-        
+
         var newUser = accountFactory.createUser(email, password);
-        userRepository.addAsync(newUser).join();
+        userRepository.addAsync(newUser);
+        outboxRepository.saveMessage(new UserRegisteredEvent(newUser.getId().id(), newUser.getEmail().value()));
     }
 }

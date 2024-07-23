@@ -23,7 +23,7 @@ public class AuthenticateHandler implements ResultCommandHandler<Authenticate, L
 
     @Override
     public LoginResponse send(Authenticate command) {
-        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
+        var authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                 command.email(),
                 command.password())
         );

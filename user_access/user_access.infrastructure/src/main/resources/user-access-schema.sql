@@ -1,6 +1,6 @@
-CREATE SCHEMA IF NOT EXISTS user_access;
+-- CREATE SCHEMA IF NOT EXISTS user_access;
 
-CREATE TABLE IF NOT EXISTS user_access.users
+CREATE TABLE IF NOT EXISTS users
 (
     id       UUID PRIMARY KEY,
     email    VARCHAR(255) NOT NULL UNIQUE,
@@ -10,27 +10,27 @@ CREATE TABLE IF NOT EXISTS user_access.users
 );
 
 
-CREATE TABLE IF NOT EXISTS user_access.roles 
+CREATE TABLE IF NOT EXISTS roles 
 (
     id      INTEGER PRIMARY KEY,
     name    VARCHAR(255) NOT NULL UNIQUE
 );
 
-INSERT INTO user_access.roles (id, name) 
+INSERT INTO roles (id, name) 
 VALUES (1, 'ROLE_ADMIN'),
        (2, 'ROLE_USER')
 ON CONFLICT (id) DO NOTHING;
 
-CREATE TABLE IF NOT EXISTS user_access.user_roles 
+CREATE TABLE IF NOT EXISTS user_roles 
 (
     user_id UUID NOT NULL,
     role_id INTEGER NOT NULL,
     PRIMARY KEY (user_id, role_id),
-    FOREIGN KEY (user_id) references user_access.users (id) ON DELETE CASCADE,
-    FOREIGN KEY (role_id) references user_access.roles (id) ON DELETE CASCADE
+    FOREIGN KEY (user_id) references users (id) ON DELETE CASCADE,
+    FOREIGN KEY (role_id) references roles (id) ON DELETE CASCADE
 );
 
-CREATE TABLE IF NOT EXISTS user_access.outbox 
+CREATE TABLE IF NOT EXISTS outbox 
 (
     id UUID PRIMARY KEY,
     event_type varchar(255) NOT NULL,
@@ -40,5 +40,5 @@ CREATE TABLE IF NOT EXISTS user_access.outbox
     createdon TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
-CREATE INDEX IF NOT EXISTS idx_processed ON user_access.outbox (processed, processed_at);
+CREATE INDEX IF NOT EXISTS idx_processed ON outbox (processed, processed_at);
 

@@ -9,7 +9,7 @@ import lombok.Getter;
 
 @Getter
 @Entity
-@Table(name = "roles", schema = "user_access")
+@Table(name = "roles")
 public class Role extends EntityObject<RoleId> {
     
     @Embedded

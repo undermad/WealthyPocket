@@ -32,12 +32,12 @@ public class EmailTest {
         Email email4 = new Email("test.test@gmail.com");
         Email email5 = new Email("test^iing@gmail.com");
 
-        assertEquals("test@gmail.com", email.getValue());
-        assertEquals("test-test@gmail.com", email1.getValue());
-        assertEquals("test_test@gmail.com", email2.getValue());
-        assertEquals("test@gmail.co.uk", email3.getValue());
-        assertEquals("test.test@gmail.com", email4.getValue());
-        assertEquals("test^iing@gmail.com", email5.getValue());
+        assertEquals("test@gmail.com", email.value());
+        assertEquals("test-test@gmail.com", email1.value());
+        assertEquals("test_test@gmail.com", email2.value());
+        assertEquals("test@gmail.co.uk", email3.value());
+        assertEquals("test.test@gmail.com", email4.value());
+        assertEquals("test^iing@gmail.com", email5.value());
     }
     
     @Test

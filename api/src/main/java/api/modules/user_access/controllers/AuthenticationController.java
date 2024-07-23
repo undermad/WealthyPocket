@@ -1,4 +1,4 @@
-package user_access.modules.user_access.controllers;
+package api.modules.user_access.controllers;
 
 import user_access.commands.Authenticate;
 import ectimel.cqrs.commands.CommandDispatcher;

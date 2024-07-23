@@ -30,7 +30,7 @@ public class ReadPersistenceContextConfiguration {
             @Qualifier("userAccessDataSource") DataSource dataSource,
             JpaProperties jpaProperties) {
         return builder.dataSource(dataSource)
-                .packages("ectimel.entities")
+                .packages("user_access.entities")
                 .persistenceUnit("puReadUserAccess")
                 .properties(jpaProperties.getProperties())
                 .build();

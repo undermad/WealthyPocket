@@ -1,4 +1,4 @@
-package user_access.security.jwt;
+package api.security.jwt;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

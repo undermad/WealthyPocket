@@ -11,7 +11,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.concurrent.CompletableFuture;
 
-@Async
 @Repository
 public class PostgresUserRepository implements UserRepository {
     
@@ -21,7 +20,7 @@ public class PostgresUserRepository implements UserRepository {
 
 
     @Override
-    public CompletableFuture<User> getAsync(Email email) {
+    public User getAsync(Email email) {
         
         TypedQuery<User> query = entityManager
                 .createQuery("SELECT u FROM User u WHERE u.email = :email", User.class);
@@ -31,22 +30,19 @@ public class PostgresUserRepository implements UserRepository {
         var users = query.getResultList();
         var user = users.isEmpty() ? null : users.getFirst();
         
-        return CompletableFuture.completedFuture(user);
+        return user;
     }
 
     @Override
-    public CompletableFuture<Void> addAsync(User user) {
+    public void addAsync(User user) {
         entityManager.persist(user);
-        return CompletableFuture.completedFuture(null);
     }
 
     @Override
-    public CompletableFuture<Void> updateAsync(User user) {
-        return null;
+    public void updateAsync(User user) {
     }
 
     @Override
-    public CompletableFuture<Void> deleteAsync(User user) {
-        return null;
+    public void deleteAsync(User user) {
     }
 }

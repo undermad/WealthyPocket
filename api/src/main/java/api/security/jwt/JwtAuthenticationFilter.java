@@ -1,4 +1,4 @@
-package user_access.security.jwt;
+package api.security.jwt;
 
 import user_access.commands.ValidateJwt;
 import ectimel.cqrs.commands.CommandDispatcher;

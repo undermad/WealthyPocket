@@ -1,8 +1,8 @@
-package user_access.security.spring;
+package api.security.spring;
 
 
-import user_access.security.jwt.JwtAuthenticationEntryPoint;
-import user_access.security.jwt.JwtAuthenticationFilter;
+import api.security.jwt.JwtAuthenticationEntryPoint;
+import api.security.jwt.JwtAuthenticationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;

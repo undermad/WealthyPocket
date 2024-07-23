@@ -30,7 +30,7 @@ public class ReadWalletPersistenceContextConfiguration {
             @Qualifier("walletDataSource") DataSource dataSource,
             JpaProperties jpaProperties) {
         return builder.dataSource(dataSource)
-                .packages("ectimel.entities")
+                .packages("wallet.entities")
                 .persistenceUnit("puReadWallet")
                 .properties(jpaProperties.getProperties())
                 .build();
