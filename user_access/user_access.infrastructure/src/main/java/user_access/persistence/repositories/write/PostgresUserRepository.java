@@ -21,16 +21,14 @@ public class PostgresUserRepository implements UserRepository {
 
     @Override
     public User getAsync(Email email) {
-        
         TypedQuery<User> query = entityManager
                 .createQuery("SELECT u FROM User u WHERE u.email = :email", User.class);
         
         query.setParameter("email", email);
         
         var users = query.getResultList();
-        var user = users.isEmpty() ? null : users.getFirst();
-        
-        return user;
+
+        return users.isEmpty() ? null : users.getFirst();
     }
 
     @Override

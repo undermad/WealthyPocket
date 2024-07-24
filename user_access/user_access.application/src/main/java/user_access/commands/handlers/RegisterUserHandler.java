@@ -48,7 +48,10 @@ public class RegisterUserHandler implements CommandHandler<RegisterUser> {
         var password = new Password(passwordEncoder.encode(command.password()));
 
         var newUser = accountFactory.createUser(email, password);
+        
         userRepository.addAsync(newUser);
-        outboxRepository.saveMessage(new UserRegisteredEvent(newUser.getId().id(), newUser.getEmail().value()));
+        
+        var event = new UserRegisteredEvent(newUser.getId().id(), newUser.getEmail().value());
+        outboxRepository.saveMessage(event);
     }
 }

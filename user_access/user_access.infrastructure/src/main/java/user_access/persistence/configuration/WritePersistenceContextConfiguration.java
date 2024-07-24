@@ -39,7 +39,7 @@ public class WritePersistenceContextConfiguration {
             @Qualifier("userAccessDataSource") DataSource dataSource,
             JpaProperties jpaProperties) {
                 return builder.dataSource(dataSource)
-                        .packages("user_access.entities")
+                        .packages("user_access.entities", "user_access.persistence.outbox")
                         .persistenceUnit("puWriteUserAccess")
                         .properties(jpaProperties.getProperties())
                         .build();
