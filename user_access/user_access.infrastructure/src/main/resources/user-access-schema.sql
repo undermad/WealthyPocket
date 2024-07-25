@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS outbox
 (
     id UUID PRIMARY KEY,
     event_type varchar(255) NOT NULL,
-    payload JSONB NOT NULL,
+    payload varchar(5000) NOT NULL,
     processed BOOLEAN DEFAULT FALSE,
     processed_at TIMESTAMPTZ DEFAULT NULL,
     createdon TIMESTAMPTZ NOT NULL DEFAULT NOW()

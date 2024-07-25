@@ -1,20 +1,21 @@
 package user_access.persistence.outbox;
 
+import ectimel.outbox.OutboxMessage;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.Instant;
 import java.util.UUID;
 
 @Builder
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Table(name = "outbox")
-public class OutboxMessage {
+public class UserAccessOutboxMessage implements OutboxMessage {
 
     @Id
     @GeneratedValue
@@ -23,7 +24,7 @@ public class OutboxMessage {
     @Column(name = "event_type", nullable = false)
     private String eventType;
 
-    @Column(name = "payload", columnDefinition = "jsonb", nullable = false)
+    @Column(name = "payload", nullable = false)
     private String payload;
 
     @Column(name = "processed", nullable = false)
