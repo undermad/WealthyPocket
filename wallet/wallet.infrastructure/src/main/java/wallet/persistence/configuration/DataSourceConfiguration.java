@@ -1,4 +1,4 @@
-package wallet.persistence;
+package wallet.persistence.configuration;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;

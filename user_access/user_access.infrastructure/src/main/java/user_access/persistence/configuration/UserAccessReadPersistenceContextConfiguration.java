@@ -20,7 +20,7 @@ import javax.sql.DataSource;
         entityManagerFactoryRef = "readEntityManagerFactoryUserAccess",
         transactionManagerRef = "readTransactionManagerUserAccess"
 )
-public class ReadPersistenceContextConfiguration {
+public class UserAccessReadPersistenceContextConfiguration {
 
 
     @Primary
@@ -37,7 +37,7 @@ public class ReadPersistenceContextConfiguration {
     }
 
     @Bean(name = "readTransactionManagerUserAccess")
-    public PlatformTransactionManager transactionManager(
+    public PlatformTransactionManager userAccessTransactionManager(
             @Qualifier("readEntityManagerFactoryUserAccess") EntityManagerFactory entityManagerFactory) {
         return new JpaTransactionManager(entityManagerFactory);
     }

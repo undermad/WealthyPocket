@@ -1,4 +1,4 @@
-package wallet.persistence;
+package wallet.persistence.configuration;
 
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Qualifier;

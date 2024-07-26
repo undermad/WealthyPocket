@@ -31,7 +31,7 @@ import javax.sql.DataSource;
         entityManagerFactoryRef = "writeEntityManagerFactoryUserAccess",
         transactionManagerRef = "writeTransactionManagerUserAccess"
 )
-public class WritePersistenceContextConfiguration {
+public class UserAccessWritePersistenceContextConfiguration {
 
     @Bean(name = "writeEntityManagerFactoryUserAccess")
     public LocalContainerEntityManagerFactoryBean writeEntityManagerFactoryUserAccess(
@@ -46,7 +46,7 @@ public class WritePersistenceContextConfiguration {
     }
 
     @Bean(name = "writeTransactionManagerUserAccess")
-    public PlatformTransactionManager transactionManager(
+    public PlatformTransactionManager userAccessTransactionManager(
             @Qualifier("writeEntityManagerFactoryUserAccess") EntityManagerFactory entityManagerFactory) {
         return new JpaTransactionManager(entityManagerFactory);
     }
