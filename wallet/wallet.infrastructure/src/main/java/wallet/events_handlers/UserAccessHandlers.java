@@ -11,6 +11,7 @@ import wallet.persistence.inbox.WalletInboxMessage;
 public class UserAccessHandlers {
     
     // Need to refactor this, handler suppose to handle actual logic, and inbox should be automated behind the hood
+    // another comment that will works perfectly
     
     private final InboxRepository<WalletInboxMessage> inboxRepository;
 
