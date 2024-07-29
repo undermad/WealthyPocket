@@ -1,7 +1,6 @@
 package ectimel.message_broker;
 
 
-import ectimel.outbox.OutboxRepository;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.BeanPostProcessor;
