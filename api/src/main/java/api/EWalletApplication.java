@@ -27,8 +27,6 @@ public class EWalletApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-//		
-//		TestEvent anotherEvent = new TestEvent("Second message");
-//		messageBroker.publish(anotherEvent);
+
 	}
 }
