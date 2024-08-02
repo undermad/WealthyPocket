@@ -29,18 +29,19 @@ public class EventListenerBeanPostProcessor implements BeanPostProcessor {
             for (var method : methods) {
                 var annotation = method.getAnnotation(EventListener.class);
                 if (annotation == null) continue;
-                method.setAccessible(true);
-                messageBroker.subscribe(annotation.value(), event -> {
-                    System.out.println(Thread.currentThread().getName());
-                    taskExecutor.execute(() -> {
-                        try {
-                            method.invoke(bean, event);
-                        } catch (IllegalAccessException | InvocationTargetException e) {
-                            throw new RuntimeException(e);
-                        }
-                    });
-                    System.out.println("after invoke method should show before sleep");
-                });
+
+                var parameter = method.getParameters()[0].getType();
+                if (Event.class.isAssignableFrom(parameter)) {
+                    method.setAccessible(true);
+                    messageBroker.subscribe((Class<? extends Event>) parameter,
+                            event -> taskExecutor.execute(() -> {
+                                try {
+                                    method.invoke(bean, event);
+                                } catch (IllegalAccessException | InvocationTargetException e) {
+                                    throw new RuntimeException(e);
+                                }
+                            }));
+                }
             }
         }
 
