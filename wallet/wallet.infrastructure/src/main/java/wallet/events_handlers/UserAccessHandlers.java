@@ -10,7 +10,7 @@ public class UserAccessHandlers {
 
     @EventListener()
     public void handleUserRegisteredEvent(UserRegisteredEvent event) {
-        System.out.println("aaa");
+        System.out.println("bbb");
     }
     
 }
