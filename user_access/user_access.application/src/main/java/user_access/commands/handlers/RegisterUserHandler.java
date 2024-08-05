@@ -1,5 +1,6 @@
 package user_access.commands.handlers;
 
+import ectimel.outbox.OutboxMessage;
 import ectimel.outbox.OutboxRepository;
 import user_access.UserRegisteredEvent;
 import user_access.commands.RegisterUser;
@@ -23,7 +24,7 @@ public class RegisterUserHandler implements CommandHandler<RegisterUser> {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
-    private final OutboxRepository outboxRepository;
+    private final OutboxRepository<OutboxMessage> outboxRepository;
 
     public RegisterUserHandler(@Qualifier("userFactory") AccountFactory accountFactory,
                                UserRepository userRepository,

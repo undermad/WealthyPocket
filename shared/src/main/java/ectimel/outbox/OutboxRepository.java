@@ -8,5 +8,6 @@ public interface OutboxRepository<T> {
     void saveMessage(Event event);
     List<T> getAllMessages();
     
+    void updateMessage(T message);
     
 }

@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
 
+
 @Component("userAccessOutboxPoller")
 public class OutboxPoller implements Poller {
 
@@ -22,6 +23,7 @@ public class OutboxPoller implements Poller {
         this.outboxRepository = outboxRepository;
     }
 
+    @Transactional("writeTransactionManagerUserAccess")
     @Scheduled(fixedRate = 5000L)
     public void pollSchedule() {
         poll();
@@ -38,6 +40,9 @@ public class OutboxPoller implements Poller {
                     Class<?> clazz = Class.forName(msg.getEventType());
                     var event = (Event) JsonMapper.fromJson(msg.getPayload(), clazz);
                     messageBroker.publish(event);
+                    message.setProcessed(true);
+                    message.setProcessedAt(Instant.now());
+                    outboxRepository.updateMessage(message);
                 } catch (ClassNotFoundException e) {
                     throw new RuntimeException(e);
                 }

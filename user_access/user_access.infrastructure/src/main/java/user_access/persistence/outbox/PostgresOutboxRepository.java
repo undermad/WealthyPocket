@@ -35,4 +35,9 @@ public class PostgresOutboxRepository implements OutboxRepository<UserAccessOutb
                     """, UserAccessOutboxMessage.class).getResultList();
     }
 
+    @Override
+    public void updateMessage(UserAccessOutboxMessage message) {
+        entityManager.merge(message);
+    }
+
 }
