@@ -46,8 +46,6 @@ public class OutboxPoller implements Poller {
                 } catch (ClassNotFoundException e) {
                     throw new RuntimeException(e);
                 }
-
-
             }
         });
 

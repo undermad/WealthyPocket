@@ -8,7 +8,7 @@ import user_access.UserRegisteredEvent;
 public class UserAccessHandlers {
 
 
-    @EventListener()
+    @EventListener
     public void handleUserRegisteredEvent(UserRegisteredEvent event) {
         System.out.println("bbb");
     }

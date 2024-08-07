@@ -1,12 +1,12 @@
-package user_access.value_objects;
+package wallet.values;
 
 import ectimel.exceptions.NullIdException;
 
 import java.io.Serializable;
 import java.util.UUID;
 
-public record UserId(UUID id) implements Serializable {
-    public UserId {
+public record WalletId(UUID id) implements Serializable {
+    public WalletId {
         if(id == null) throw new NullIdException(this.getClass());
     }
 }

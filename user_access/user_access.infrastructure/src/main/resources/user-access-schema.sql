@@ -1,4 +1,3 @@
--- CREATE SCHEMA IF NOT EXISTS user_access;
 
 CREATE TABLE IF NOT EXISTS users
 (
