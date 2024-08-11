@@ -3,9 +3,9 @@ package wallet.entities;
 import ectimel.aggregates.EntityObject;
 import jakarta.persistence.*;
 import wallet.values.MoneyAmount;
+import wallet.values.MoneyCurrency;
 import wallet.values.MoneyId;
 
-import java.util.Currency;
 
 @Entity
 @Table(name = "money")
@@ -19,6 +19,8 @@ public class Money extends EntityObject<MoneyId> {
     private MoneyAmount amount;
     
     @Embedded
-    @AttributeOverride(name = "currencyCode", column = @Column(name = "currency", nullable = false))
-    private Currency currency;
+    private MoneyCurrency currencyCode;
+
+
+    
 }
