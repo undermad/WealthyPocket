@@ -1,14 +1,13 @@
 package user_access.commands.handlers;
 
-import user_access.commands.Authenticate;
 import ectimel.cqrs.commands.Handler;
 import ectimel.cqrs.commands.ResultCommandHandler;
-import user_access.dto.LoginResponse;
-import user_access.services.JwtProvider;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import user_access.commands.Authenticate;
+import user_access.dto.LoginResponse;
+import user_access.services.JwtProvider;
 
 @Handler
 public class AuthenticateHandler implements ResultCommandHandler<Authenticate, LoginResponse> {

@@ -2,11 +2,15 @@ package wallet.entities;
 
 import ectimel.aggregates.EntityObject;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import wallet.values.MoneyAmount;
 import wallet.values.MoneyCurrency;
 import wallet.values.MoneyId;
 
 
+@AllArgsConstructor
+@Builder
 @Entity
 @Table(name = "money")
 public class Money extends EntityObject<MoneyId> {
@@ -21,6 +25,10 @@ public class Money extends EntityObject<MoneyId> {
     @Embedded
     private MoneyCurrency currencyCode;
 
-
+    protected Money() {
+        // only for hibernate
+    }
+    
+    
     
 }
