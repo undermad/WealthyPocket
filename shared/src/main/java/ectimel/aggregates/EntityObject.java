@@ -3,6 +3,7 @@ package ectimel.aggregates;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.MappedSuperclass;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.io.Serializable;
 
@@ -10,6 +11,7 @@ import java.io.Serializable;
 // See AggregateRoot for rules
 
 @Getter
+@Setter
 @MappedSuperclass
 public abstract class EntityObject<ID extends Serializable> {
     

@@ -1,15 +1,12 @@
 package user_access.persistence.repositories.write;
 
-import user_access.entities.User;
-import user_access.repositories.UserRepository;
-import user_access.value_objects.Email;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Repository;
-
-import java.util.concurrent.CompletableFuture;
+import user_access.entities.User;
+import user_access.repositories.UserRepository;
+import user_access.value_objects.Email;
 
 @Repository
 public class PostgresUserRepository implements UserRepository {
@@ -21,7 +18,7 @@ public class PostgresUserRepository implements UserRepository {
 
     @Override
     public User getAsync(Email email) {
-        TypedQuery<User> query = entityManager
+        var query = entityManager
                 .createQuery("SELECT u FROM User u WHERE u.email = :email", User.class);
         
         query.setParameter("email", email);

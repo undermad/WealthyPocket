@@ -6,7 +6,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 import wallet.values.OwnerId;
+import wallet.values.UserId;
 
 import java.util.List;
 import java.util.UUID;
@@ -19,10 +21,11 @@ import java.util.UUID;
 @Table(name = "owner")
 public class Owner extends AggregateRoot<OwnerId> {
 
-    @Column(name = "user_id", nullable = false, unique = true)
-    private UUID userId;
+    @Embedded
+    @AttributeOverride(name = "id", column = @Column(name = "user_id", nullable = false, unique = true))
+    private UserId userId;
 
-    @OneToMany(mappedBy = "owner", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "owner", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     private List<Wallet> wallets;
 
     protected Owner() {

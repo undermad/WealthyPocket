@@ -23,6 +23,7 @@ public class Money extends EntityObject<MoneyId> {
     private MoneyAmount amount;
     
     @Embedded
+    @AttributeOverride(name = "currencyCode", column = @Column(name = "currency_code", nullable = false))
     private MoneyCurrency currencyCode;
 
     protected Money() {

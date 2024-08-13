@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
+import java.util.concurrent.ExecutionException;
 
 
 @Component("userAccessOutboxPoller")
@@ -43,7 +44,7 @@ public class OutboxPoller implements Poller {
                     message.setProcessed(true);
                     message.setProcessedAt(Instant.now());
                     outboxRepository.updateMessage(message);
-                } catch (ClassNotFoundException e) {
+                } catch (ClassNotFoundException | ExecutionException | InterruptedException e) {
                     throw new RuntimeException(e);
                 }
             }

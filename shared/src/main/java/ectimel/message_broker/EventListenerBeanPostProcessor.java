@@ -14,12 +14,9 @@ import java.lang.reflect.InvocationTargetException;
 public class EventListenerBeanPostProcessor implements BeanPostProcessor {
 
     private final MessageBroker messageBroker;
-    private final TaskExecutor taskExecutor;
 
-
-    public EventListenerBeanPostProcessor(MessageBroker messageBroker, @Qualifier("messageBrokerTaskExecutor") TaskExecutor taskExecutor) {
+    public EventListenerBeanPostProcessor(MessageBroker messageBroker) {
         this.messageBroker = messageBroker;
-        this.taskExecutor = taskExecutor;
     }
 
     @Override
@@ -34,13 +31,13 @@ public class EventListenerBeanPostProcessor implements BeanPostProcessor {
                 if (Event.class.isAssignableFrom(parameter)) {
                     method.setAccessible(true);
                     messageBroker.subscribe((Class<? extends Event>) parameter,
-                            event -> taskExecutor.execute(() -> {
+                            event -> {
                                 try {
                                     method.invoke(bean, event);
                                 } catch (IllegalAccessException | InvocationTargetException e) {
                                     throw new RuntimeException(e);
                                 }
-                            }));
+                            });
                 }
             }
         }
