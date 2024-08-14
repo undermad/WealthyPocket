@@ -2,13 +2,15 @@ package user_access.repositories;
 
 import user_access.entities.User;
 import user_access.value_objects.Email;
+import user_access.value_objects.UserId;
 
-import java.util.concurrent.CompletableFuture;
+import java.util.UUID;
 
 public interface UserRepository {
-    User getAsync(Email email);
+    User get(Email email);
+    User get(UserId userId);
     
-    void addAsync(User user);
-    void updateAsync(User user);
-    void deleteAsync(User user);
+    void add(User user);
+    void update(User user);
+    void delete(User user);
 }

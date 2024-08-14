@@ -1,10 +1,10 @@
 package user_access.services;
 
+import user_access.dto.CustomUserDetails;
 import user_access.value_objects.Email;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -36,6 +36,6 @@ public class CustomUserDetailsService implements UserDetailsService {
                 .map(role -> new SimpleGrantedAuthority(role.getRoleName().value()))
                 .collect(Collectors.toSet());
 
-        return new User(user.getEmail().value(), user.getPassword().value(), authorities);
+        return new CustomUserDetails(user.getId().id(), user.getEmail().value(), user.getPassword().value(), authorities);
     }
 }

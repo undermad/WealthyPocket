@@ -41,7 +41,7 @@ public class RegisterUserHandler implements CommandHandler<RegisterUser> {
     public void handle(RegisterUser command) {
         var email = new Email(command.email());
 
-        User user = userRepository.getAsync(email);
+        User user = userRepository.get(email);
         if (user != null) {
             throw new UserAlreadyExistException(email);
         }
@@ -50,7 +50,7 @@ public class RegisterUserHandler implements CommandHandler<RegisterUser> {
 
         var newUser = accountFactory.createUser(email, password);
         
-        userRepository.addAsync(newUser);
+        userRepository.add(newUser);
         
         var event = new UserRegisteredEvent(newUser.getId().id(), newUser.getEmail().value());
         outboxRepository.saveMessage(event);

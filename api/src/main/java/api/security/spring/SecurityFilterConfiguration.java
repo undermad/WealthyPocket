@@ -5,6 +5,7 @@ import api.security.jwt.JwtAuthenticationEntryPoint;
 import api.security.jwt.JwtAuthenticationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Role;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -34,6 +35,8 @@ public class SecurityFilterConfiguration {
                 .cors(AbstractHttpConfigurer::disable)
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((authorization) -> authorization
+                        
+                        .requestMatchers("/api/v1/user/").hasRole("USER")
                         .anyRequest().permitAll())
 
                 //exception handling filter
