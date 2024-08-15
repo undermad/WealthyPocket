@@ -1,4 +1,7 @@
-# eWallet
+# Wealth Pocket
+
+![C2 screenshot](/wealth_pocket_logo.jpg)
+
 
 This repository is example of modular monolith application created with Java and Spring Boot, all modules are
 independent of
