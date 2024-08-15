@@ -42,6 +42,12 @@
             <version>${project.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>ectimel</groupId>
+            <artifactId>notification</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
         
         
     </dependencies>

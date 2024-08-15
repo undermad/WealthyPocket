@@ -8,7 +8,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
-@ComponentScan(basePackages = {"wallet", "user_access", "ectimel", "api"})
+@ComponentScan(basePackages = {"wallet", "user_access", "ectimel", "api", "notification"})
 @EnableScheduling
 public class EWalletApplication implements CommandLineRunner {
 	

@@ -30,7 +30,7 @@ public class DataSourceConfiguration {
     public DataSource userAccessDataSource() {
         HikariConfig config = new HikariConfig();
         config.setDriverClassName("org.postgresql.Driver");
-        config.setJdbcUrl("jdbc:postgresql://" + postgresHost + ":" + postgresPort + "/eWallet");
+        config.setJdbcUrl("jdbc:postgresql://" + postgresHost + ":" + postgresPort + "/user_access");
         config.setUsername(postgresUsername);
         config.setPassword(postgresPassword);
         return new HikariDataSource(config);
