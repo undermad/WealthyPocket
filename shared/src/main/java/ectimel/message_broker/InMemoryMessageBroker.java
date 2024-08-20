@@ -1,12 +1,15 @@
 package ectimel.message_broker;
 
+import ectimel.inbox.InboxRepository;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Array;
+import java.security.Key;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.*;
@@ -14,7 +17,7 @@ import java.util.concurrent.*;
 @Component
 public class InMemoryMessageBroker implements MessageBroker {
 
-    private final Map<Class<? extends Event>, List<Subscriber>> eventToSubscribers = new ConcurrentHashMap<>();
+    private final Map<Class<? extends Event>, Map<Subscriber, InboxRepository<InboxMessage>>> eventToSubscribers = new ConcurrentHashMap<>();
 
     private final TaskExecutor taskExecutor;
 
@@ -28,10 +31,16 @@ public class InMemoryMessageBroker implements MessageBroker {
         long startTime = System.nanoTime();
 
         var subscribers = eventToSubscribers.get(event.getClass());
+        
         if (subscribers != null) {
             List<CompletableFuture<Void>> futures = new ArrayList<>();
 
-            for (var subscriber : subscribers) {
+            for (var subscriber : subscribers.keySet()) {
+                
+                var repository = subscribers.get(subscriber);
+                
+                // find the way to extract the uuid 
+                
                 CompletableFuture<Void> future = CompletableFuture.runAsync(() -> subscriber.update(event), taskExecutor);
                 futures.add(future);
             }
@@ -48,7 +57,8 @@ public class InMemoryMessageBroker implements MessageBroker {
     }
 
     @Override
-    public void subscribe(Class<? extends Event> clazz, Subscriber subscriber) {
-        eventToSubscribers.computeIfAbsent(clazz, k -> new ArrayList<>()).add(subscriber);
+    public void subscribe(Class<? extends Event> clazz, Subscriber subscriber, InboxRepository<InboxMessage> repository) {
+        eventToSubscribers.computeIfAbsent(clazz, k -> new ConcurrentHashMap<>());
+        eventToSubscribers.get(clazz).put(subscriber, repository);
     }
 }

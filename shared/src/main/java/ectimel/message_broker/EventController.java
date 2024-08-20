@@ -9,4 +9,5 @@ import java.lang.annotation.*;
 @Documented
 @Component
 public @interface EventController {
+    String inboxRepositoryBean();
 }

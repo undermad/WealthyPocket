@@ -4,7 +4,7 @@ import ectimel.message_broker.EventController;
 import ectimel.message_broker.EventListener;
 import user_access.UserRegisteredEvent;
 
-@EventController
+@EventController(inboxRepositoryBean = "notificationInboxRepository")
 public class NotificationUserAccessHandlers {
     
     

@@ -6,7 +6,7 @@ import ectimel.message_broker.EventListener;
 import user_access.UserRegisteredEvent;
 import wallet.commands.CreateOwner;
 
-@EventController
+@EventController(inboxRepositoryBean = "walletInboxRepository")
 public class UserAccessHandlers {
     
     private CommandDispatcher commandDispatcher;
@@ -14,7 +14,6 @@ public class UserAccessHandlers {
     public UserAccessHandlers(CommandDispatcher commandDispatcher) {
         this.commandDispatcher = commandDispatcher;
     }
-
 
     @EventListener
     public void handleUserRegisteredEvent(UserRegisteredEvent event) {

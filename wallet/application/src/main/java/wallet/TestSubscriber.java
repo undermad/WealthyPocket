@@ -3,7 +3,6 @@ package wallet;
 import ectimel.message_broker.EventController;
 import ectimel.message_broker.EventListener;
 
-@EventController
 public class TestSubscriber {
 
 //    @EventListener(TestEvent.class)

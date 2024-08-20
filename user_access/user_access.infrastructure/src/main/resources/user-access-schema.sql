@@ -38,5 +38,15 @@ CREATE TABLE IF NOT EXISTS outbox
     createdon TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
+CREATE TABLE IF NOT EXISTS inbox
+(
+    id UUID PRIMARY KEY,
+    event_type varchar(255) NOT NULL,
+    payload varchar(5000) NOT NULL,
+    processed BOOLEAN DEFAULT FALSE,
+    processed_at TIMESTAMPTZ DEFAULT NULL,
+    createdon TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
 CREATE INDEX IF NOT EXISTS idx_processed ON outbox (processed, processed_at);
 

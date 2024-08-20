@@ -10,23 +10,10 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @SpringBootApplication
 @ComponentScan(basePackages = {"wallet", "user_access", "ectimel", "api", "notification"})
 @EnableScheduling
-public class EWalletApplication implements CommandLineRunner {
-	
-	private final MessageBroker messageBroker;
-
-    public EWalletApplication(MessageBroker messageBroker) {
-        this.messageBroker = messageBroker;
-    }
+public class EWalletApplication {
 
     public static void main(String[] args) {
 		SpringApplication.run(EWalletApplication.class, args);
 	}
 	
-	
-
-
-	@Override
-	public void run(String... args) throws Exception {
-
-	}
 }

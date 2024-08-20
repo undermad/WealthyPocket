@@ -1,5 +1,4 @@
-package wallet.persistence.inbox;
-
+package user_access.persistence.inbox;
 
 import ectimel.message_broker.InboxMessage;
 import jakarta.persistence.*;
@@ -16,7 +15,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @Entity
 @Table(name = "inbox")
-public class WalletInboxMessage implements InboxMessage {
+public class UserAccessInboxMessage implements InboxMessage {
 
     @Id
     @GeneratedValue
@@ -36,4 +35,5 @@ public class WalletInboxMessage implements InboxMessage {
 
     @CreationTimestamp
     private Instant createdOn;
+    
 }
