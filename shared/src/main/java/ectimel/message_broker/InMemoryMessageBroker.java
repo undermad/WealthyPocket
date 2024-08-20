@@ -40,6 +40,13 @@ public class InMemoryMessageBroker implements MessageBroker {
                 var repository = subscribers.get(subscriber);
                 
                 // find the way to extract the uuid 
+                // add id to the event, persist id with message, add getId method to event interface, override,
+                // add getByEventId method to InboxRepository
+                // write all query
+                
+                // if message exist, let poller handle the message process
+                // if not, save to inbox
+                // move invoke methods to poller
                 
                 CompletableFuture<Void> future = CompletableFuture.runAsync(() -> subscriber.update(event), taskExecutor);
                 futures.add(future);
