@@ -7,11 +7,11 @@ import user_access.UserRegisteredEvent;
 import wallet.commands.CreateOwner;
 
 @EventController(inboxRepositoryBean = "walletInboxRepository")
-public class UserAccessHandlers {
+public class WalletEventHandlers {
     
     private CommandDispatcher commandDispatcher;
 
-    public UserAccessHandlers(CommandDispatcher commandDispatcher) {
+    public WalletEventHandlers(CommandDispatcher commandDispatcher) {
         this.commandDispatcher = commandDispatcher;
     }
 

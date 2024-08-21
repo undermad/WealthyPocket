@@ -31,6 +31,7 @@ CREATE TABLE IF NOT EXISTS user_roles
 CREATE TABLE IF NOT EXISTS outbox 
 (
     id UUID PRIMARY KEY,
+    event_id UUID NOT NULL UNIQUE,
     event_type varchar(255) NOT NULL,
     payload varchar(5000) NOT NULL,
     processed BOOLEAN DEFAULT FALSE,
@@ -41,6 +42,7 @@ CREATE TABLE IF NOT EXISTS outbox
 CREATE TABLE IF NOT EXISTS inbox
 (
     id UUID PRIMARY KEY,
+    event_id UUID NOT NULL UNIQUE,
     event_type varchar(255) NOT NULL,
     payload varchar(5000) NOT NULL,
     processed BOOLEAN DEFAULT FALSE,

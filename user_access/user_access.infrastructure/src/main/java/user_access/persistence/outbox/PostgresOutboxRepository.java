@@ -19,6 +19,7 @@ public class PostgresOutboxRepository implements OutboxRepository<UserAccessOutb
     @Override
     public void saveMessage(Event event) {
         var message = UserAccessOutboxMessage.builder()
+                .eventId(event.getId())
                 .eventType(String.valueOf(event.getClass()).split(" ")[1])
                 .payload(JsonMapper.toJson(event))
                 .processed(false)

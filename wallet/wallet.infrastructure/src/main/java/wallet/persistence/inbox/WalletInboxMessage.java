@@ -22,6 +22,9 @@ public class WalletInboxMessage implements InboxMessage {
     @GeneratedValue
     private UUID id;
 
+    @Column(name = "event_id", nullable = false, unique = true)
+    private UUID eventId;
+
     @Column(name = "event_type", nullable = false)
     private String eventType;
 

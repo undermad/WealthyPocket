@@ -1,6 +1,8 @@
 package ectimel.outbox;
 
+import java.lang.reflect.InvocationTargetException;
+
 public interface Poller {
     
-    void poll();
+    void poll() throws InvocationTargetException, IllegalAccessException;
 }

@@ -23,6 +23,7 @@ public class PostgresInboxRepository implements InboxRepository<WalletInboxMessa
     @Override
     public void saveMessage(Event event) {
         var message = WalletInboxMessage.builder()
+                .eventId(event.getId())
                 .eventType(String.valueOf(event.getClass()).split(" ")[1])
                 .payload(JsonMapper.toJson(event))
                 .processed(false)
@@ -38,8 +39,34 @@ public class PostgresInboxRepository implements InboxRepository<WalletInboxMessa
     }
 
     @Override
-    public void updateMessage(WalletInboxMessage message) {
+    public WalletInboxMessage getMessageByEventId(UUID eventId) {
 
+        var query = entityManager.createQuery("""
+                SELECT m FROM WalletInboxMessage m WHERE m.eventId = :eventId
+                """, WalletInboxMessage.class);
+
+        query.setParameter("eventId", eventId);
+
+        var result = query.getResultList();
+
+        return result.isEmpty() ? null : result.getFirst();
+    }
+
+    @Override
+    public List<WalletInboxMessage> getAllMessages() {
+        var query = entityManager.createQuery("""
+                SELECT m FROM WalletInboxMessage m WHERE m.processed = false
+                """, WalletInboxMessage.class);
+
+        var result = query.getResultList();
+
+        return result;
+    }
+
+    @Transactional("writeTransactionManagerWallet")
+    @Override
+    public void updateMessage(WalletInboxMessage message) {
+        entityManager.merge(message);
     }
 
 }

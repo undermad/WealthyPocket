@@ -16,6 +16,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.UUID;
+
 
 @Handler
 public class RegisterUserHandler implements CommandHandler<RegisterUser> {
@@ -52,7 +54,7 @@ public class RegisterUserHandler implements CommandHandler<RegisterUser> {
         
         userRepository.add(newUser);
         
-        var event = new UserRegisteredEvent(newUser.getId().id(), newUser.getEmail().value());
+        var event = new UserRegisteredEvent(UUID.randomUUID(), newUser.getId().id(), newUser.getEmail().value());
         outboxRepository.saveMessage(event);
     }
 }

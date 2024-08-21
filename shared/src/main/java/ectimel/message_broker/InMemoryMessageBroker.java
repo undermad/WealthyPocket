@@ -31,24 +31,19 @@ public class InMemoryMessageBroker implements MessageBroker {
         long startTime = System.nanoTime();
 
         var subscribers = eventToSubscribers.get(event.getClass());
-        
+
         if (subscribers != null) {
             List<CompletableFuture<Void>> futures = new ArrayList<>();
 
             for (var subscriber : subscribers.keySet()) {
-                
-                var repository = subscribers.get(subscriber);
-                
-                // find the way to extract the uuid 
-                // add id to the event, persist id with message, add getId method to event interface, override,
-                // add getByEventId method to InboxRepository
-                // write all query
-                
-                // if message exist, let poller handle the message process
-                // if not, save to inbox
-                // move invoke methods to poller
-                
-                CompletableFuture<Void> future = CompletableFuture.runAsync(() -> subscriber.update(event), taskExecutor);
+
+                CompletableFuture<Void> future = CompletableFuture.runAsync(() -> {
+                    var repository = subscribers.get(subscriber);
+                    var message = repository.getMessageByEventId(event.getId());
+                    if (message != null) return;
+                    repository.saveMessage(event);
+                }, taskExecutor);
+
                 futures.add(future);
             }
 
