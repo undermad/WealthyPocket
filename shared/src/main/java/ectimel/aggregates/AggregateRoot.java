@@ -27,6 +27,8 @@ public abstract class AggregateRoot<ID extends Serializable> extends EntityObjec
     public AggregateRoot(ID id) {
         super(id);
     }
+    
+    public abstract void validate();
 
     @CreationTimestamp
     private Instant createdOn;

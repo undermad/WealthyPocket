@@ -8,16 +8,13 @@ import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Array;
 import java.security.Key;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.*;
 
 @Component
 public class InMemoryMessageBroker implements MessageBroker {
 
-    private final Map<Class<? extends Event>, Map<Subscriber, InboxRepository<InboxMessage>>> eventToSubscribers = new ConcurrentHashMap<>();
+    private final Map<Class<? extends Event>, List<InboxRepository<InboxMessage>>> eventToSubscribers = new ConcurrentHashMap<>();
 
     private final TaskExecutor taskExecutor;
 
@@ -30,15 +27,16 @@ public class InMemoryMessageBroker implements MessageBroker {
 
         long startTime = System.nanoTime();
 
-        var subscribers = eventToSubscribers.get(event.getClass());
+        var subscribingRepositories = eventToSubscribers.get(event.getClass());
 
-        if (subscribers != null) {
+        if (subscribingRepositories != null) {
             List<CompletableFuture<Void>> futures = new ArrayList<>();
 
-            for (var subscriber : subscribers.keySet()) {
+            for (var subscriber : subscribingRepositories) {
 
                 CompletableFuture<Void> future = CompletableFuture.runAsync(() -> {
-                    var repository = subscribers.get(subscriber);
+                    var idx = subscribingRepositories.indexOf(subscriber);
+                    var repository = subscribingRepositories.get(idx);
                     var message = repository.getMessageByEventId(event.getId());
                     if (message != null) return;
                     repository.saveMessage(event);
@@ -59,8 +57,8 @@ public class InMemoryMessageBroker implements MessageBroker {
     }
 
     @Override
-    public void subscribe(Class<? extends Event> clazz, Subscriber subscriber, InboxRepository<InboxMessage> repository) {
-        eventToSubscribers.computeIfAbsent(clazz, k -> new ConcurrentHashMap<>());
-        eventToSubscribers.get(clazz).put(subscriber, repository);
+    public void subscribe(Class<? extends Event> clazz, InboxRepository<InboxMessage> repository) {
+        eventToSubscribers.computeIfAbsent(clazz, k -> new ArrayList<>());
+        eventToSubscribers.get(clazz).add(repository);
     }
 }

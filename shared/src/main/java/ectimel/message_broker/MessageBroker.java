@@ -9,6 +9,6 @@ public interface MessageBroker {
     
     void publish(Event event) throws ExecutionException, InterruptedException;
     
-    void subscribe(Class<? extends Event> event, Subscriber subscriber, InboxRepository<InboxMessage> repository);
+    void subscribe(Class<? extends Event> event, InboxRepository<InboxMessage> repository);
     
 }

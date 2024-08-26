@@ -31,7 +31,11 @@ public class Owner extends AggregateRoot<OwnerId> {
     protected Owner() {
         // only for hibernate
     }
-    
-    
+
+    @Override
+    public void validate() {
+        
+    }
+
 
 }

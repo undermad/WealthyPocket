@@ -39,17 +39,7 @@ public class EventListenerBeanPostProcessor implements BeanPostProcessor, Applic
 
                     var parameter = method.getParameters()[0].getType();
                     if (Event.class.isAssignableFrom(parameter)) {
-                        method.setAccessible(true);
-                        messageBroker.subscribe((Class<? extends Event>) parameter,
-                                event -> {
-                                    try {
-                                        method.invoke(bean, event);
-                                    } catch (IllegalAccessException | InvocationTargetException e) {
-                                        throw new RuntimeException(e);
-                                    }
-                                },
-                                (InboxRepository<InboxMessage>) repository
-                        );
+                        messageBroker.subscribe((Class<? extends Event>) parameter, (InboxRepository<InboxMessage>) repository);
                     }
                 }
             }
