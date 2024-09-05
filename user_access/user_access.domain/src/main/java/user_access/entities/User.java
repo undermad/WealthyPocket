@@ -34,16 +34,18 @@ public class User extends AggregateRoot<UserId> {
         // only for hibernate
     }
 
-    @Override
-    public void validate() {
-        
-    }
+    
 
     public User(UserId userId, Email email, Password password, Set<Role> roles) {
         super(userId);
         this.email = email;
         this.password = password;
         this.roles = roles;
+    }
+
+    @Override
+    public void validate() {
+
     }
 
     public boolean validatePassword(Password password) {

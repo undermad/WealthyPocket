@@ -7,13 +7,14 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.InvocationTargetException;
 
 
-@Component
+@Configuration
 public class EventListenerBeanPostProcessor implements BeanPostProcessor, ApplicationContextAware {
 
     private final MessageBroker messageBroker;

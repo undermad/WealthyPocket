@@ -1,0 +1,4 @@
+User can have only one account.
+2 factor authentication is required 
+User can have max 1 wallet created in free account
+
