@@ -17,6 +17,7 @@ import java.time.Instant;
 // If id is equals, then aggregates are equal
 // Hashcode of aggregates with same id are same even if other values are different.
 
+@SuperBuilder
 @MappedSuperclass
 public abstract class AggregateRoot<ID extends Serializable> extends EntityObject<ID> {
 

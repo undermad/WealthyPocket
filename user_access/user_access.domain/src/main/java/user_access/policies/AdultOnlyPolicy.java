@@ -11,7 +11,7 @@ public class AdultOnlyPolicy implements UserPolicy {
     @Override
     public Boolean isApplicable(UserRegistrationData data) {
         
-        var adultDate = data.bornDate().plusYears(18);
+        var adultDate = data.bornDate().value().plusYears(18);
         
         var isAdult = adultDate.isBefore(LocalDate.now());
         

@@ -24,14 +24,16 @@ public class UserFactory implements AccountFactory {
     @Override
     public User createUser(UserRegistrationData registrationData) {
 
-        var applicablePolicies = policies.stream()
-                .filter(policy -> policy.isApplicable(registrationData))
-                .collect(Collectors.toSet());
-        
-        var role = Role.createUserRole();
-        var userId = new UserId(UUID.randomUUID());
-        
-        return new User(userId, registrationData.email(), registrationData.password(), Set.of(role));
+        policies.forEach(policy -> policy.isApplicable(registrationData));
+
+        return User.builder()
+                .id(new UserId(UUID.randomUUID()))
+                .email(registrationData.email())
+                .password(registrationData.password())
+                .roles(Set.of(Role.createUserRole()))
+                .bornDate(registrationData.bornDate())
+                .country(registrationData.country())
+                .build();
     }
 
 }

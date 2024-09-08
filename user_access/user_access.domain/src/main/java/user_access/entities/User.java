@@ -2,15 +2,16 @@ package user_access.entities;
 
 import ectimel.aggregates.AggregateRoot;
 import ectimel.exceptions.NullException;
+import lombok.Builder;
+import lombok.experimental.SuperBuilder;
 import user_access.exceptions.RoleAlreadyGrantedException;
 import user_access.exceptions.UnauthorizedException;
-import user_access.value_objects.Email;
-import user_access.value_objects.Password;
-import user_access.value_objects.UserId;
+import user_access.value_objects.*;
 import jakarta.persistence.*;
 import lombok.Getter;
 import java.util.Set;
 
+@SuperBuilder
 @Getter
 @Entity
 @Table(name = "users")
@@ -24,6 +25,15 @@ public class User extends AggregateRoot<UserId> {
     @AttributeOverride(name = "value", column = @Column (name = "password", nullable = false))
     private Password password;
     
+    @Embedded
+    @AttributeOverride(name = "value", column = @Column(name = "country", nullable = false))
+    private Country country;
+    
+    @Embedded
+    @AttributeOverride(name = "value", column = @Column(name = "born_date", nullable = false))
+    private BornDate bornDate;
+    
+    
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),
@@ -36,12 +46,12 @@ public class User extends AggregateRoot<UserId> {
 
     
 
-    public User(UserId userId, Email email, Password password, Set<Role> roles) {
-        super(userId);
-        this.email = email;
-        this.password = password;
-        this.roles = roles;
-    }
+//    public User(UserId userId, Email email, Password password, Set<Role> roles) {
+//        super(userId);
+//        this.email = email;
+//        this.password = password;
+//        this.roles = roles;
+//    }
 
     @Override
     public void validate() {

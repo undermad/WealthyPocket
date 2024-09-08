@@ -3,6 +3,8 @@ CREATE TABLE IF NOT EXISTS users
     id       UUID PRIMARY KEY,
     email    VARCHAR(255) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
+    country VARCHAR(255) NOT NULL,
+    born_date DATE NOT NULL,
     createdon TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     updatedon TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );

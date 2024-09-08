@@ -4,12 +4,14 @@ import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.MappedSuperclass;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 
 import java.io.Serializable;
 
 
 // See AggregateRoot for rules
 
+@SuperBuilder
 @Getter
 @Setter
 @MappedSuperclass
