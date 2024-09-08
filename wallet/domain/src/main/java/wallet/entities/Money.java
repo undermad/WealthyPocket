@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import wallet.values.MoneyAmount;
-import wallet.values.MoneyCurrency;
+import wallet.values.Currency;
 import wallet.values.MoneyId;
 
 
@@ -24,7 +24,7 @@ public class Money extends EntityObject<MoneyId> {
     
     @Embedded
     @AttributeOverride(name = "currencyCode", column = @Column(name = "currency_code", nullable = false))
-    private MoneyCurrency currencyCode;
+    private Currency currencyCode;
 
     protected Money() {
         // only for hibernate

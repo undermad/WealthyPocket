@@ -1,9 +1,10 @@
 package wallet.factories;
 
 import wallet.entities.Owner;
+import wallet.policies.WalletPolicyData;
 
 import java.util.UUID;
 
 public interface OwnerFactory {
-    Owner createOwner(UUID userId);
+    Owner createOwner(WalletPolicyData userId);
 }

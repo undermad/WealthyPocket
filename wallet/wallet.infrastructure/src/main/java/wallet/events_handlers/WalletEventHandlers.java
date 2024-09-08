@@ -17,7 +17,7 @@ public class WalletEventHandlers {
 
     @EventListener
     public void handleUserRegisteredEvent(UserRegisteredEvent event) {
-        var command = new CreateOwner(event.userId());
+        var command = new CreateOwner(event.userId(), event.country());
         commandDispatcher.send(command);
     }
     

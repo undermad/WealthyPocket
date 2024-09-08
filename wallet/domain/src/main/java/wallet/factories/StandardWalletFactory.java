@@ -2,6 +2,7 @@ package wallet.factories;
 
 import wallet.entities.Owner;
 import wallet.entities.Wallet;
+import wallet.policies.WalletPolicyData;
 import wallet.values.WalletId;
 
 import java.util.List;
@@ -16,14 +17,14 @@ public class StandardWalletFactory implements WalletFactory {
     }
 
     @Override
-    public Wallet createWallet(Owner owner) {
+    public Wallet createWallet(Owner owner, WalletPolicyData walletPolicyData) {
         var wallet = Wallet.builder()
                 .owner(owner)
                 .build();
         
         wallet.setId(new WalletId(UUID.randomUUID()));
         
-        var money = moneyFactory.createMoney(wallet);
+        var money = moneyFactory.createMoney(wallet, walletPolicyData);
         
         wallet.setMoney(List.of(money));
         

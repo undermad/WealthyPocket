@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import wallet.commands.CreateOwner;
 import wallet.exceptions.OwnerAlreadyExist;
 import wallet.factories.OwnerFactory;
+import wallet.policies.WalletPolicyData;
 import wallet.repositories.OwnerRepository;
 import wallet.values.UserId;
 
@@ -28,7 +29,9 @@ public class CreateOwnerHandler implements CommandHandler<CreateOwner> {
         var owner = ownerRepository.get(userId);
         if(owner != null) throw new OwnerAlreadyExist(owner.getId().id());
         
-        var newOwner = ownerFactory.createOwner(command.userId());
+        var walletPolicyData = new WalletPolicyData(userId, command.country());
+        
+        var newOwner = ownerFactory.createOwner(walletPolicyData);
         ownerRepository.addAsync(newOwner);
     }
 }
