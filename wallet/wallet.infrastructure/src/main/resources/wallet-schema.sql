@@ -37,6 +37,8 @@ CREATE TABLE IF NOT EXISTS outbox
     createdon TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
+CREATE INDEX IF NOT EXISTS idx_processed ON outbox (processed, processed_at);
+
 CREATE TABLE IF NOT EXISTS inbox
 (
     id UUID PRIMARY KEY,
@@ -47,6 +49,8 @@ CREATE TABLE IF NOT EXISTS inbox
     processed_at TIMESTAMPTZ DEFAULT NULL,
     createdon TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
+
+CREATE INDEX IF NOT EXISTS idx_processed ON inbox (processed, processed_at);
 
 
 

@@ -14,7 +14,7 @@ import java.util.UUID;
 
 
 @Repository("walletInboxRepository")
-public class PostgresInboxRepository implements InboxRepository<WalletInboxMessage> {
+public class WalletPostgresInboxRepository implements InboxRepository<WalletInboxMessage> {
     
     @PersistenceContext(unitName = "puWriteWallet")
     private EntityManager entityManager;

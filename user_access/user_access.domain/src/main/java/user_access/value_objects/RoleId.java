@@ -15,8 +15,10 @@ public record RoleId(Integer id) implements Serializable {
         return new RoleId(1);
     }
     
-    public static RoleId createUserId() {
+    public static RoleId createActiveRoleId() {
         return new RoleId(2);
     }
+    
+    public static RoleId createInactiveRoleId() { return new RoleId(3); }
     
 }

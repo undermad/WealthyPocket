@@ -30,7 +30,7 @@ public class UserAccessReadPersistenceContextConfiguration {
             @Qualifier("userAccessDataSource") DataSource dataSource,
             JpaProperties jpaProperties) {
         return builder.dataSource(dataSource)
-                .packages("user_access.entities", "user_access.persistence.outbox")
+                .packages("user_access.entities", "user_access.persistence")
                 .persistenceUnit("puReadUserAccess")
                 .properties(jpaProperties.getProperties())
                 .build();

@@ -1,4 +1,4 @@
-package wallet.persistence.configuration;
+package notification.persistence.configuration;
 
 import jakarta.persistence.EntityManagerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -16,29 +16,29 @@ import javax.sql.DataSource;
 
 @Configuration
 @EnableJpaRepositories(
-        basePackages = "wallet.persistence.repositories.read",
-        entityManagerFactoryRef = "readEntityManagerFactoryWallet",
-        transactionManagerRef = "readTransactionManagerWallet"
+        basePackages = "notification.persistence.repositories.read",
+        entityManagerFactoryRef = "readEntityManagerFactoryUserAccess",
+        transactionManagerRef = "readTransactionManagerUserAccess"
 )
-public class WalletReadPersistenceContextConfiguration {
+public class NotificationReadPersistenceContextConfiguration {
 
 
     @Primary
-    @Bean(name = "readEntityManagerFactoryWallet")
-    public LocalContainerEntityManagerFactoryBean readEntityManagerFactoryWallet(
-            @Qualifier("walletEntityManagerFactoryBuilder") EntityManagerFactoryBuilder builder,
-            @Qualifier("walletDataSource") DataSource dataSource,
+    @Bean(name = "readEntityManagerFactoryNotification")
+    public LocalContainerEntityManagerFactoryBean readEntityManagerFactoryUserAccess(
+            @Qualifier("notificationEntityManagerFactoryBuilder") EntityManagerFactoryBuilder builder,
+            @Qualifier("notificationDataSource") DataSource dataSource,
             JpaProperties jpaProperties) {
         return builder.dataSource(dataSource)
-                .packages("wallet.entities", "wallet.persistence")
-                .persistenceUnit("puReadWallet")
+                .packages("notification.entities", "notification.persistence.outbox")
+                .persistenceUnit("puReadNotification")
                 .properties(jpaProperties.getProperties())
                 .build();
     }
 
-    @Bean(name = "readTransactionManagerWallet")
-    public PlatformTransactionManager walletTransactionManager(
-            @Qualifier("readEntityManagerFactoryWallet") EntityManagerFactory entityManagerFactory) {
+    @Bean(name = "readTransactionManagerNotification")
+    public PlatformTransactionManager notificationTransactionManager(
+            @Qualifier("readEntityManagerFactoryNotification") EntityManagerFactory entityManagerFactory) {
         return new JpaTransactionManager(entityManagerFactory);
     }
 

@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Repository("userAccessInbox")
-public class PostgresInboxRepository implements InboxRepository<UserAccessInboxMessage> {
+public class UserAccessPostgresInboxRepository implements InboxRepository<UserAccessInboxMessage> {
 
     @PersistenceContext(unitName = "puWriteUserAccess")
     private EntityManager entityManager;

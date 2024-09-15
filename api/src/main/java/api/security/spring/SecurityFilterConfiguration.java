@@ -36,7 +36,7 @@ public class SecurityFilterConfiguration {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((authorization) -> authorization
                         
-                        .requestMatchers("/api/v1/user/").hasRole("USER")
+                        .requestMatchers("/api/v1/user/").hasRole("ACTIVE_USER")
                         .anyRequest().permitAll())
 
                 //exception handling filter

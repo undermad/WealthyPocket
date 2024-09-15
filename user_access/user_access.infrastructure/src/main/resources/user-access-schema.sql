@@ -18,7 +18,9 @@ CREATE TABLE IF NOT EXISTS roles
 
 INSERT INTO roles (id, name) 
 VALUES (1, 'ROLE_ADMIN'),
-       (2, 'ROLE_USER')
+       (2, 'ROLE_ACTIVE_USER'),
+       (3, 'ROLE_INACTIVE_USER'),
+       (4, 'ROLE_AUTHENTICATED_USER')
 ON CONFLICT (id) DO NOTHING;
 
 CREATE TABLE IF NOT EXISTS user_roles 
@@ -53,4 +55,6 @@ CREATE TABLE IF NOT EXISTS inbox
 );
 
 CREATE INDEX IF NOT EXISTS idx_processed ON outbox (processed, processed_at);
+
+CREATE INDEX IF NOT EXISTS idx_processed ON inbox (processed, processed_at);
 

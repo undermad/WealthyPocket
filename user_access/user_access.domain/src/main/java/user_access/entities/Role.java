@@ -26,9 +26,15 @@ public class Role extends EntityObject<RoleId> {
         this.roleName = roleName;
     }
     
-    public static Role createUserRole() {
-        RoleId roleId = RoleId.createUserId();
-        RoleName roleName = RoleName.createRegularUserName();
+    public static Role createInactiveUserRole() {
+        RoleId roleId = RoleId.createInactiveRoleId();
+        RoleName roleName = RoleName.createInactiveRoleName();
+        return new Role(roleId, roleName);
+    }
+    
+    public static Role createActiveUserRole() {
+        RoleId roleId = RoleId.createActiveRoleId();
+        RoleName roleName = RoleName.createActiveRoleName();
         return new Role(roleId, roleName);
     }
 

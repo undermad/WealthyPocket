@@ -9,7 +9,6 @@ import user_access.value_objects.UserId;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 
 public class UserFactory implements AccountFactory {
@@ -30,7 +29,7 @@ public class UserFactory implements AccountFactory {
                 .id(new UserId(UUID.randomUUID()))
                 .email(registrationData.email())
                 .password(registrationData.password())
-                .roles(Set.of(Role.createUserRole()))
+                .roles(Set.of(Role.createInactiveUserRole()))
                 .bornDate(registrationData.bornDate())
                 .country(registrationData.country())
                 .build();

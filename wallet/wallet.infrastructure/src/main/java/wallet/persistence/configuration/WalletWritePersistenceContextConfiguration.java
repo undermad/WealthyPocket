@@ -28,7 +28,7 @@ public class WalletWritePersistenceContextConfiguration {
             @Qualifier("walletDataSource") DataSource dataSource,
             JpaProperties jpaProperties) {
         return builder.dataSource(dataSource)
-                .packages("wallet.entities", "wallet.persistence.inbox", "wallet.persistence.outbox")
+                .packages("wallet.entities", "wallet.persistence")
                 .persistenceUnit("puWriteWallet")
                 .properties(jpaProperties.getProperties())
                 .build();

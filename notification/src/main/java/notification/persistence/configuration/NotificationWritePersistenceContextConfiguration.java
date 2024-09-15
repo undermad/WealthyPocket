@@ -1,4 +1,4 @@
-package user_access.persistence.configuration;
+package notification.persistence.configuration;
 
 
 import jakarta.persistence.EntityManagerFactory;
@@ -27,27 +27,27 @@ import javax.sql.DataSource;
 
 @Configuration
 @EnableJpaRepositories(
-        basePackages = "user_access.persistence.repositories.write",
+        basePackages = "notification.persistence.repositories.write",
         entityManagerFactoryRef = "writeEntityManagerFactoryUserAccess",
         transactionManagerRef = "writeTransactionManagerUserAccess"
 )
-public class UserAccessWritePersistenceContextConfiguration {
+public class NotificationWritePersistenceContextConfiguration {
 
-    @Bean(name = "writeEntityManagerFactoryUserAccess")
-    public LocalContainerEntityManagerFactoryBean writeEntityManagerFactoryUserAccess(
-            @Qualifier("userAccessEntityManagerFactoryBuilder") EntityManagerFactoryBuilder builder,
-            @Qualifier("userAccessDataSource") DataSource dataSource,
+    @Bean(name = "writeEntityManagerFactoryNotification")
+    public LocalContainerEntityManagerFactoryBean writeEntityManagerFactoryNotification(
+            @Qualifier("notificationEntityManagerFactoryBuilder") EntityManagerFactoryBuilder builder,
+            @Qualifier("notificationDataSource") DataSource dataSource,
             JpaProperties jpaProperties) {
                 return builder.dataSource(dataSource)
-                        .packages("user_access.entities", "user_access.persistence")
-                        .persistenceUnit("puWriteUserAccess")
+                        .packages("notification.entities", "notification.persistence")
+                        .persistenceUnit("puWriteNotification")
                         .properties(jpaProperties.getProperties())
                         .build();
     }
 
-    @Bean(name = "writeTransactionManagerUserAccess")
-    public PlatformTransactionManager userAccessTransactionManager(
-            @Qualifier("writeEntityManagerFactoryUserAccess") EntityManagerFactory entityManagerFactory) {
+    @Bean(name = "writeTransactionManagerNotification")
+    public PlatformTransactionManager notificationTransactionManager(
+            @Qualifier("writeEntityManagerFactoryNotification") EntityManagerFactory entityManagerFactory) {
         return new JpaTransactionManager(entityManagerFactory);
     }
 
