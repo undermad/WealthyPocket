@@ -15,6 +15,4 @@ public record UserRegistrationData(
         BornDate bornDate,
         Country country
 ) {
-    
-    
 }
