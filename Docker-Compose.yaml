@@ -1,0 +1,12 @@
+version: '3.9'
+services:
+  app:
+    image: undermad/whealthy-pocket:latest
+    container_name: springboot_app
+    ports:
+      - "8081:8081"
+    environment:
+      - POSTGRESQL_HOST=${POSTGRESQL_HOST}
+      - POSTGRESQL_PORT=${POSTGRESQL_PORT}
+      - POSTGRESQL_USERNAME=${POSTGRESQL_USERNAME}
+      - POSTGRESQL_PASSWORD=${POSTGRESQL_PASSWORD}
