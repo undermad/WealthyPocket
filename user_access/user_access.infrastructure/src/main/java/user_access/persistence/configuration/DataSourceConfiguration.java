@@ -20,7 +20,7 @@ public class DataSourceConfiguration {
     @Value("${user.access-postgresql-port}")
     private String postgresPort;
 
-    @Value("${user.access-postgresql-usernmad}")
+    @Value("${user.access-postgresql-username}")
     private String postgresUsername;
 
     @Value("${user.access-postgresql-password}")

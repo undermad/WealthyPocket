@@ -1,0 +1,35 @@
+version: '3.9'
+services:
+  app:
+    image: undermad/whealthy-pocket:latest
+    container_name: springboot_app
+    ports:
+      - "8081:8081"
+    environment:
+      - POSTGRESQL_HOST=database-1.c6edf2yznle4.eu-west-2.rds.amazonaws.com
+      - POSTGRESQL_PORT=5432
+      - POSTGRESQL_USERNAME=postgres
+      - POSTGRESQL_PASSWORD=!6Seniaxk
+#    depends_on:
+#      db:
+#        condition: service_healthy
+
+#  db:
+#    image: postgres:latest
+#    container_name: postgres_db
+#    environment:
+#      - POSTGRESQL_USERNAME=${POSTGRESQL_USERNAME}
+#      - POSTGRESQL_PASSWORD=${POSTGRESQL_PASSWORD}
+#    ports:
+#      - "5434:5432"
+#    volumes:
+#      - postgres_data:/var/lib/postgresql/data
+#    healthcheck:
+#      test: [ "CMD-SHELL", "pg_isready -U ${POSTGRESQL_USERNAME}" ]
+#      interval: 10s
+#      retries: 5
+#      start_period: 30s
+#      timeout: 5s
+#
+#volumes:
+#  postgres_data:
