@@ -9,7 +9,7 @@ services:
       - POSTGRESQL_HOST=database-1.c6edf2yznle4.eu-west-2.rds.amazonaws.com
       - POSTGRESQL_PORT=5432
       - POSTGRESQL_USERNAME=postgres
-      - POSTGRESQL_PASSWORD=!6Seniaxk
+      - POSTGRESQL_PASSWORD=xx
 #    depends_on:
 #      db:
 #        condition: service_healthy
