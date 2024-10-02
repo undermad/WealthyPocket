@@ -1,0 +1,23 @@
+name: CD
+
+on:
+  workflow_run: 
+    workflows: [ "CI" ]
+    types:
+      - completed
+    
+jobs:
+  build:
+
+    runs-on: self-hosted
+
+    steps:
+      - name: Pull Docker Image
+        run: |
+          cd /home/ubuntu/apps/pocket/
+          docker compose down
+          docker rmi undermad/whealthy-pocket || true
+          docker compose up -d
+      
+  
+  
