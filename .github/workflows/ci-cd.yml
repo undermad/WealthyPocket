@@ -49,7 +49,7 @@ jobs:
       - name: Create PEM file from Secret
         run: |
           echo "$EC2_SSH_KEY" > ec2.pem
-          chmod 600 ec2-private-key.pem
+          chmod 600 ec2.pem
         env:
           EC2_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
         
