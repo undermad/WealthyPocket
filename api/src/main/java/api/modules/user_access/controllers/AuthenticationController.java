@@ -1,5 +1,6 @@
 package api.modules.user_access.controllers;
 
+import lombok.extern.slf4j.Slf4j;
 import user_access.commands.Authenticate;
 import ectimel.cqrs.commands.CommandDispatcher;
 import user_access.dto.LoginResponse;
