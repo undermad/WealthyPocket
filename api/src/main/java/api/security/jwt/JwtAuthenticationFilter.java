@@ -35,7 +35,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         var token = getTokenFromRequest(request);
 
         if (StringUtils.hasText(token)) {
-            var email = commandDispatcher.send(new ValidateJwt(token)).email();
+            var email = commandDispatcher.sendWithResult(new ValidateJwt(token)).email();
             var userDetails = queryDispatcher.query(new LoadUserByUsername(email)).join();
             var authenticationToken = new UsernamePasswordAuthenticationToken(
                     userDetails,
