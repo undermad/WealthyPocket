@@ -1,6 +1,5 @@
 package api.modules.user_access.controllers;
 
-import lombok.extern.slf4j.Slf4j;
 import user_access.commands.Authenticate;
 import ectimel.cqrs.commands.CommandDispatcher;
 import user_access.dto.LoginResponse;
@@ -19,7 +18,7 @@ public class AuthenticationController {
 
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> login(@RequestBody Authenticate authenticate) {
-        var loginResponse = commandDispatcher.send(authenticate);
+        var loginResponse = commandDispatcher.sendWithResult(authenticate);
         return ResponseEntity.ok(loginResponse);
     } 
     

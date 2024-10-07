@@ -29,7 +29,7 @@ public class CommandDispatcherImpl implements CommandDispatcher, ApplicationCont
 
     @SuppressWarnings("unchecked")
     @Override
-    public <TResult> TResult send(ResultCommand<TResult> command) {
+    public <TResult> TResult sendWithResult(ResultCommand<TResult> command) {
         var commandHandlerBean = getHandlerBean(command);
         
         if(commandHandlerBean instanceof ResultCommandHandler<?,?>) {
