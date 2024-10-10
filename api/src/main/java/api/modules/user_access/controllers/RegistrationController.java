@@ -26,4 +26,10 @@ public class RegistrationController
         return new ResponseEntity<>("User registered.", HttpStatus.CREATED);
     }
 
+    @GetMapping()
+    public ResponseEntity<String> getTest()
+    {
+        return ResponseEntity.ok("abc");
+    }
+
 }
