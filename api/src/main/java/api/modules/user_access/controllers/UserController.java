@@ -17,7 +17,6 @@ import user_access.dto.CustomUserDetails;
 public class UserController {
 
     private CommandDispatcher commandDispatcher;
-
     public UserController(CommandDispatcher commandDispatcher) {
         this.commandDispatcher = commandDispatcher;
     }

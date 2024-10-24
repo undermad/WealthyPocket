@@ -26,6 +26,7 @@ public class AuthenticateHandler implements ResultCommandHandler<Authenticate, L
                 command.email(),
                 command.password())
         );
+        
         SecurityContextHolder.getContext().setAuthentication(authentication);
         return new LoginResponse(jwtProvider.generateToken(command.email()), "Bearer");
     }

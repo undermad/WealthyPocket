@@ -1,5 +1,6 @@
 package api.modules.user_access.controllers;
 
+import org.springframework.http.ResponseCookie;
 import user_access.commands.Authenticate;
 import ectimel.cqrs.commands.CommandDispatcher;
 import user_access.dto.LoginResponse;

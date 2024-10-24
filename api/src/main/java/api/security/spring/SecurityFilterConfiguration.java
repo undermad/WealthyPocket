@@ -70,13 +70,12 @@ public class SecurityFilterConfiguration
         
         http
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
-                .csrf(AbstractHttpConfigurer::disable) // <- as we use JWT authentication and state less api we dont need csrf
+                .csrf(AbstractHttpConfigurer::disable) 
                 .headers(headersConfigurer -> headersConfigurer
                         .xssProtection(xss -> xss.headerValue(XXssProtectionHeaderWriter.HeaderValue.ENABLED_MODE_BLOCK))
                         .contentSecurityPolicy(csp -> csp.policyDirectives("script-src 'self'")))
                 
                 .authorizeHttpRequests((authorization) -> authorization
-
                         .requestMatchers("/api/v1/user/").hasRole("ACTIVE_USER")
                         .anyRequest().permitAll())
 

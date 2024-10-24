@@ -48,27 +48,10 @@ public class User extends AggregateRoot<UserId> {
     public void validate() {
 
     }
-
-    public boolean validatePassword(Password password) {
-        if (this.password.equals(password)) return true;
-        throw new UnauthorizedException();
-    }
     
     public void changePassword(Password newPassword) {
         if(newPassword == null) throw new NullException("Password can not be null.");
         this.password = newPassword;
     }
     
-    public void addRole(Role role) {
-        if(role == null) throw new NullException("Role can not be null");
-        if(roles.contains(role)) throw new RoleAlreadyGrantedException(role);
-        roles.add(role);
-    }
-    
-    public void removeRole(Role role) {
-        if(role == null) throw new NullException("Role can not be null");
-        roles.remove(role);
-    }
-
-
 }
