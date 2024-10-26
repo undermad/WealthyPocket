@@ -11,7 +11,6 @@ import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.Locale;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 public class StandardMoneyFactory implements MoneyFactory {
 

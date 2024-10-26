@@ -2,6 +2,7 @@ package user_access.policies;
 
 import ectimel.policies.Policy;
 import user_access.exceptions.AdultsOnlyException;
+import user_access.factories.UserRegistrationData;
 
 import java.time.LocalDate;
 
@@ -9,7 +10,7 @@ import java.time.LocalDate;
 public class AdultOnlyPolicy implements UserPolicy {
     
     @Override
-    public Boolean isApplicable(UserRegistrationData data) {
+    public void isApplicable(UserRegistrationData data) {
         
         var adultDate = data.bornDate().value().plusYears(18);
         
@@ -18,7 +19,6 @@ public class AdultOnlyPolicy implements UserPolicy {
         if(!isAdult) {
             throw new AdultsOnlyException();
         }
-        
-        return true;
+
     }
 }

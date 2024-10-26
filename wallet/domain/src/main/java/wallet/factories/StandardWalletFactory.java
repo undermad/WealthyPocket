@@ -10,7 +10,7 @@ import java.util.UUID;
 
 public class StandardWalletFactory implements WalletFactory {
     
-    private MoneyFactory moneyFactory;
+    private final MoneyFactory moneyFactory;
 
     public StandardWalletFactory(MoneyFactory moneyFactory) {
         this.moneyFactory = moneyFactory;

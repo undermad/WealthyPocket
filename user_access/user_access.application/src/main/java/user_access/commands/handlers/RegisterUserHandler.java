@@ -9,7 +9,7 @@ import ectimel.cqrs.commands.Handler;
 import user_access.entities.User;
 import user_access.exceptions.UserAlreadyExistException;
 import user_access.factories.AccountFactory;
-import user_access.policies.UserRegistrationData;
+import user_access.factories.UserRegistrationData;
 import user_access.repositories.UserRepository;
 import user_access.value_objects.BornDate;
 import user_access.value_objects.Country;

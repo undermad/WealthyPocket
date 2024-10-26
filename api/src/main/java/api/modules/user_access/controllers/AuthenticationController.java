@@ -1,6 +1,7 @@
 package api.modules.user_access.controllers;
 
-import org.springframework.http.ResponseCookie;
+import api.modules.user_access.dto.AuthenticateRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import user_access.commands.Authenticate;
 import ectimel.cqrs.commands.CommandDispatcher;
 import user_access.dto.LoginResponse;
@@ -18,9 +19,10 @@ public class AuthenticationController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<LoginResponse> login(@RequestBody Authenticate authenticate) {
+    public ResponseEntity<LoginResponse> login(@RequestBody AuthenticateRequest authenticateRequest, HttpServletRequest httpServletRequest) {
+        var authenticate = new Authenticate(authenticateRequest.email(), authenticateRequest.password(), httpServletRequest);
         var loginResponse = commandDispatcher.sendWithResult(authenticate);
         return ResponseEntity.ok(loginResponse);
-    } 
+    }
     
 }

@@ -9,6 +9,19 @@ CREATE TABLE IF NOT EXISTS users
     updatedon TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
+CREATE TABLE IF NOT EXISTS devices_fingerprints
+(
+    id UUID PRIMARY KEY,
+    user_id UUID NOT NULL,
+    fingerprint UUID NOT NULL,
+    ip_address VARCHAR(255) NOT NULL,
+    user_agent VARCHAR(255) NOT NULL,
+    operating_system VARCHAR(255) NOT NULL,
+    device VARCHAR(255) NOT NULL,
+    last_login TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
 
 CREATE TABLE IF NOT EXISTS roles 
 (
@@ -43,6 +56,8 @@ CREATE TABLE IF NOT EXISTS outbox
     createdon TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
+CREATE INDEX IF NOT EXISTS idx_processed ON outbox (processed, processed_at);
+
 CREATE TABLE IF NOT EXISTS inbox
 (
     id UUID PRIMARY KEY,
@@ -53,8 +68,6 @@ CREATE TABLE IF NOT EXISTS inbox
     processed_at TIMESTAMPTZ DEFAULT NULL,
     createdon TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
-
-CREATE INDEX IF NOT EXISTS idx_processed ON outbox (processed, processed_at);
 
 CREATE INDEX IF NOT EXISTS idx_processed ON inbox (processed, processed_at);
 
