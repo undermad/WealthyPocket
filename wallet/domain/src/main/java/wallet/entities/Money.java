@@ -1,15 +1,11 @@
 package wallet.entities;
 
 import ectimel.aggregates.EntityObject;
-import ectimel.exceptions.NullException;
-import ectimel.exceptions.NullIdException;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import wallet.exceptions.CurrencyDoesntMatchException;
 import wallet.exceptions.NegativeValueException;
+import wallet.exceptions.NotSufficientBalance;
 import wallet.values.MoneyAmount;
 import wallet.values.Currency;
 import wallet.values.MoneyId;
@@ -32,7 +28,7 @@ public class Money extends EntityObject<MoneyId>
     private MoneyAmount amount;
 
     @Embedded
-    @AttributeOverride(name = "currencyCode", column = @Column(name = "currency_code", nullable = false))
+    @AttributeOverride(name = "value", column = @Column(name = "currency_code", nullable = false))
     private Currency currencyCode;
 
     protected Money()
@@ -40,16 +36,39 @@ public class Money extends EntityObject<MoneyId>
         // only for hibernate
     }
 
-    public void addFounds(Money money)
+    public void addFunds(@NonNull Money moneyToAdd)
     {
-        if(money == null) throw new NullException("Money can not be null");
-        if(!money.getCurrencyCode().equals(currencyCode)) throw new CurrencyDoesntMatchException("Currency must be the same.");
-        if (money.amount.value().doubleValue() < 0) throw new NegativeValueException("Value can not be less than 0.");
+        validateCurrency(moneyToAdd);
+        validateNonNegativeAmount(moneyToAdd);
         
-        var newAmount = this.amount.value().add(money.amount.value());
-        
+        var newAmount = this.amount.value().add(moneyToAdd.amount.value());
         setAmount(new MoneyAmount(newAmount));
     }
 
+    public void deductFunds(@NonNull Money moneyToDeduct)
+    {
+        validateCurrency(moneyToDeduct);
+        validateNonNegativeAmount(moneyToDeduct);
+        validateSufficientFunds(moneyToDeduct);
+        
+        var newAmount = this.amount.value().subtract(moneyToDeduct.amount.value());
+        setAmount(new MoneyAmount(newAmount));
+    }
+    
+    private void validateCurrency(Money moneyToValidate)
+    {
+        if(!moneyToValidate.getCurrencyCode().equals(currencyCode)) throw new CurrencyDoesntMatchException("Currency must be the same");
+    }
+    
+    private void validateNonNegativeAmount(Money moneyToValidate)
+    {
+        if(moneyToValidate.amount.value().doubleValue() < 0) throw new NegativeValueException("Can not deduct negative value.");
+    }
+
+    private void validateSufficientFunds(Money moneyToDeduct)
+    {
+        if(this.amount.value().subtract(moneyToDeduct.amount.value()).doubleValue() < 0)
+            throw new NotSufficientBalance("Wallet with id: " + wallet.getId() + " doesn't have enough money");
+    }
 
 }

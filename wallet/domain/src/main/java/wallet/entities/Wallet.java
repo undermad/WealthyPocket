@@ -1,18 +1,19 @@
 package wallet.entities;
 
 import ectimel.aggregates.EntityObject;
-import ectimel.exceptions.NullException;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
-import wallet.factories.StandardMoneyFactory;
-import wallet.values.MoneyAmount;
+import wallet.exceptions.CurrencyDoesntMatchException;
+import wallet.exceptions.NotSufficientBalance;
+import wallet.values.Currency;
 import wallet.values.WalletId;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @AllArgsConstructor
@@ -36,18 +37,32 @@ public class Wallet extends EntityObject<WalletId>
         // only for hibernate
     }
 
-    public void addFounds(Money moneyToAdd)
+    public void addFunds(@NonNull Money moneyToAdd)
     {
-        if(moneyToAdd == null) throw new NullException("Money can not be null");
-        
-        var targetMoney = money.stream().filter(m -> m.getCurrencyCode().equals(moneyToAdd.getCurrencyCode()))
-                .findFirst();
+        var targetMoney = findMoneyByCurrency(moneyToAdd.getCurrencyCode());
 
-        if (targetMoney.isPresent()) targetMoney.get().addFounds(moneyToAdd);
-        else {
-            moneyToAdd.setWallet(this);
-            money.add(moneyToAdd);
+        if (targetMoney.isPresent()) {
+            targetMoney.get().addFunds(moneyToAdd);
+            return;
         }
+
+        moneyToAdd.setWallet(this);
+        money.add(moneyToAdd);
+    }
+
+    public void deductFunds(@NonNull Money moneyToDeduct)
+    {
+        var targetMoney = findMoneyByCurrency(moneyToDeduct.getCurrencyCode());
+
+        if (targetMoney.isEmpty())
+            throw new CurrencyDoesntMatchException("You don't have any: " + moneyToDeduct.getCurrencyCode().value());
+        
+        targetMoney.get().deductFunds(moneyToDeduct);
+    }
+
+    private Optional<Money> findMoneyByCurrency(Currency currency)
+    {
+        return money.stream().filter(m -> m.getCurrencyCode().equals(currency)).findFirst();
     }
 
 }

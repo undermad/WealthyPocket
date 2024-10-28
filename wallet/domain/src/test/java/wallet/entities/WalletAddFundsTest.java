@@ -1,6 +1,5 @@
 package wallet.entities;
 
-import ectimel.exceptions.NullException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import wallet.values.Currency;
@@ -12,7 +11,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class WalletAddFoundsTest
+class WalletAddFundsTest
 {
 
     private Wallet wallet;
@@ -42,7 +41,7 @@ class WalletAddFoundsTest
                 .amount(new MoneyAmount(BigDecimal.valueOf(10.99)))
                 .build();
 
-        wallet.addFounds(moneyToAdd);
+        wallet.addFunds(moneyToAdd);
 
         assertTrue(wallet.getMoney().stream().anyMatch(money -> money.getCurrencyCode().equals(new Currency("PLN"))));
         assertEquals(2, wallet.getMoney().size());
@@ -57,7 +56,7 @@ class WalletAddFoundsTest
                 .amount(new MoneyAmount(BigDecimal.valueOf(10.99)))
                 .build();
 
-        wallet.addFounds(moneyToAdd);
+        wallet.addFunds(moneyToAdd);
 
         assertEquals(1, wallet.getMoney().size());
     }
@@ -65,6 +64,6 @@ class WalletAddFoundsTest
     @Test
     public void null_value()
     {
-        assertThrows(NullException.class, () -> wallet.addFounds(null));
+        assertThrows(NullPointerException.class, () -> wallet.addFunds(null));
     }
 }

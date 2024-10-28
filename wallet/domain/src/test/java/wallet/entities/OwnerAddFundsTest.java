@@ -1,9 +1,8 @@
 package wallet.entities;
 
-import ectimel.exceptions.NullException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import wallet.exceptions.ReceiverWalletNotFoundException;
+import wallet.exceptions.WalletNotFoundException;
 import wallet.values.Currency;
 import wallet.values.MoneyAmount;
 import wallet.values.UserId;
@@ -16,7 +15,7 @@ import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class OwnerAddFoundsTest
+class OwnerAddFundsTest
 {
 
     private Owner owner;
@@ -49,9 +48,9 @@ class OwnerAddFoundsTest
     @Test
     public void null_values()
     {
-        assertThrows(NullException.class, () -> owner.addFounds(new WalletId(UUID.nameUUIDFromBytes("abc".getBytes())), null));
-        assertThrows(NullException.class, () -> owner.addFounds(null, new Money()));
-        assertThrows(NullException.class, () -> owner.addFounds(null, null));
+        assertThrows(NullPointerException.class, () -> owner.deposit(new WalletId(UUID.nameUUIDFromBytes("abc".getBytes())), null));
+        assertThrows(NullPointerException.class, () -> owner.deposit(null, new Money()));
+        assertThrows(NullPointerException.class, () -> owner.deposit(null, null));
     }
 
     @Test
@@ -60,7 +59,7 @@ class OwnerAddFoundsTest
         var walletId = new WalletId(UUID.randomUUID());
         var moneyToAdd = new Money();
 
-        assertThrows(ReceiverWalletNotFoundException.class, () -> owner.addFounds(walletId, moneyToAdd));
+        assertThrows(WalletNotFoundException.class, () -> owner.deposit(walletId, moneyToAdd));
     }
 
     @Test
@@ -73,7 +72,7 @@ class OwnerAddFoundsTest
                 .amount(new MoneyAmount(BigDecimal.valueOf(10)))
                 .build();
 
-        owner.addFounds(walletUUID, moneyToAdd);
+        owner.deposit(walletUUID, moneyToAdd);
 
         var wallet = owner.getWallets().stream()
                 .filter(w -> w.getId().equals(walletUUID))

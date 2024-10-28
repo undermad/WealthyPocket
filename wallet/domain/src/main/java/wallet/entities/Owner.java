@@ -1,22 +1,15 @@
 package wallet.entities;
 
 import ectimel.aggregates.AggregateRoot;
-import ectimel.exceptions.NullException;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.experimental.SuperBuilder;
-import wallet.exceptions.ReceiverWalletNotFoundException;
-import wallet.values.MoneyAmount;
+import lombok.*;
+import wallet.exceptions.WalletNotFoundException;
 import wallet.values.OwnerId;
 import wallet.values.UserId;
 import wallet.values.WalletId;
 
-import java.math.BigDecimal;
 import java.util.List;
-import java.util.UUID;
+import java.util.Optional;
 
 @AllArgsConstructor
 @Setter
@@ -45,17 +38,28 @@ public class Owner extends AggregateRoot<OwnerId>
 
     }
 
-    public void addFounds(WalletId receiverWalletId, Money moneyToAdd)
+    public void deposit(@NonNull WalletId receiverWalletId, @NonNull Money moneyToAdd)
     {
-        if(receiverWalletId == null || moneyToAdd == null) throw new NullException("Receiver or moneyToAdd can not be null.");
-        
-        var targetWallet = wallets.stream().filter(wallet -> wallet.getId().equals(receiverWalletId))
-                .findFirst();
-        
-        if(targetWallet.isEmpty()) throw new ReceiverWalletNotFoundException(receiverWalletId);
-        
-        targetWallet.get().addFounds(moneyToAdd);
+        var targetWallet = findOwnerWallet(receiverWalletId);
+
+        if (targetWallet.isEmpty()) throw new WalletNotFoundException(receiverWalletId);
+
+        targetWallet.get().addFunds(moneyToAdd);
     }
 
+    public void withdraw(@NonNull WalletId receiverWalletId, @NonNull Money moneyToDeduct)
+    {
+        var targetWallet = findOwnerWallet(receiverWalletId);
+        
+        if(targetWallet.isEmpty()) throw new WalletNotFoundException(receiverWalletId);
+
+        targetWallet.get().deductFunds(moneyToDeduct);
+
+    }
+
+    private Optional<Wallet> findOwnerWallet(WalletId walletId)
+    {
+        return wallets.stream().filter(wallet -> wallet.getId().equals(walletId)).findFirst();
+    }
 
 }

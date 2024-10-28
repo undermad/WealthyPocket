@@ -1,6 +1,5 @@
 package wallet.entities;
 
-import ectimel.exceptions.NullException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import wallet.exceptions.CurrencyDoesntMatchException;
@@ -11,7 +10,7 @@ import wallet.values.MoneyAmount;
 import java.math.BigDecimal;
 import static org.junit.jupiter.api.Assertions.*;
 
-class MoneyAddFoundTest
+class MoneyAddFundsTest
 {
 
     private Money money;
@@ -30,7 +29,7 @@ class MoneyAddFoundTest
     @Test
     public void null_values()
     {
-        assertThrows(NullException.class, () -> money.addFounds(null));
+        assertThrows(NullPointerException.class, () -> money.addFunds(null));
     }
 
     @Test
@@ -42,7 +41,7 @@ class MoneyAddFoundTest
                 .amount(new MoneyAmount(BigDecimal.valueOf(-10)))
                 .build();
         
-        assertThrows(NegativeValueException.class, () -> money.addFounds(moneyToAdd));
+        assertThrows(NegativeValueException.class, () -> money.addFunds(moneyToAdd));
     }
     
     @Test
@@ -54,7 +53,7 @@ class MoneyAddFoundTest
                 .amount(new MoneyAmount(BigDecimal.valueOf(10.99)))
                 .build();
 
-        money.addFounds(moneyToAdd);
+        money.addFunds(moneyToAdd);
         
         assertEquals(20.99, money.getAmount().value().doubleValue());
     }
@@ -68,7 +67,7 @@ class MoneyAddFoundTest
                 .amount(new MoneyAmount(BigDecimal.valueOf(10.99)))
                 .build();
         
-        assertThrows(CurrencyDoesntMatchException.class, () -> money.addFounds(moneyToAdd));
+        assertThrows(CurrencyDoesntMatchException.class, () -> money.addFunds(moneyToAdd));
     }
 
 }
