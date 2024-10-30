@@ -1,8 +1,8 @@
 package api.security.jwt;
 
 import user_access.commands.ValidateJwt;
-import ectimel.cqrs.commands.CommandDispatcher;
-import ectimel.cqrs.queries.QueryDispatcher;
+import wallet.cqrs.commands.CommandDispatcher;
+import wallet.cqrs.queries.QueryDispatcher;
 import user_access.queries.LoadUserByUsername;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

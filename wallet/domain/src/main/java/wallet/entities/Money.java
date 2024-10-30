@@ -1,11 +1,12 @@
 package wallet.entities;
 
-import ectimel.aggregates.EntityObject;
+import wallet.aggregates.EntityObject;
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 import wallet.exceptions.CurrencyDoesntMatchException;
 import wallet.exceptions.NegativeValueException;
-import wallet.exceptions.NotSufficientBalance;
+import wallet.exceptions.InsufficientBalance;
 import wallet.values.MoneyAmount;
 import wallet.values.Currency;
 import wallet.values.MoneyId;
@@ -13,7 +14,7 @@ import wallet.values.MoneyId;
 @Getter
 @Setter
 @AllArgsConstructor
-@Builder
+@SuperBuilder
 @Entity
 @Table(name = "money")
 public class Money extends EntityObject<MoneyId>
@@ -35,8 +36,10 @@ public class Money extends EntityObject<MoneyId>
     {
         // only for hibernate
     }
-
-    public void addFunds(@NonNull Money moneyToAdd)
+    
+    
+    
+    protected void addFunds(@NonNull Money moneyToAdd)
     {
         validateCurrency(moneyToAdd);
         validateNonNegativeAmount(moneyToAdd);
@@ -45,7 +48,7 @@ public class Money extends EntityObject<MoneyId>
         setAmount(new MoneyAmount(newAmount));
     }
 
-    public void deductFunds(@NonNull Money moneyToDeduct)
+    protected void deductFunds(@NonNull Money moneyToDeduct)
     {
         validateCurrency(moneyToDeduct);
         validateNonNegativeAmount(moneyToDeduct);
@@ -68,7 +71,7 @@ public class Money extends EntityObject<MoneyId>
     private void validateSufficientFunds(Money moneyToDeduct)
     {
         if(this.amount.value().subtract(moneyToDeduct.amount.value()).doubleValue() < 0)
-            throw new NotSufficientBalance("Wallet with id: " + wallet.getId() + " doesn't have enough money");
+            throw new InsufficientBalance("Wallet with id: " + wallet.getId() + " doesn't have enough money");
     }
 
 }

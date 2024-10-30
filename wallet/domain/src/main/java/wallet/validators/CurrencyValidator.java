@@ -1,7 +1,5 @@
 package wallet.validators;
 
-import ectimel.validators.Validator;
-
 import java.util.Currency;
 import java.util.Set;
 import java.util.stream.Collectors;

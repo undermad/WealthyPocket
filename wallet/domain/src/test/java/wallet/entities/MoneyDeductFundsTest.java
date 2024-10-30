@@ -3,7 +3,7 @@ package wallet.entities;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import wallet.exceptions.CurrencyDoesntMatchException;
-import wallet.exceptions.NotSufficientBalance;
+import wallet.exceptions.InsufficientBalance;
 import wallet.exceptions.NegativeValueException;
 import wallet.values.Currency;
 import wallet.values.MoneyAmount;
@@ -83,7 +83,7 @@ public class MoneyDeductFundsTest
                 .currencyCode(new Currency("GBP"))
                 .build();
 
-        assertThrows(NotSufficientBalance.class, () -> money.deductFunds(moneyToDeduct));
+        assertThrows(InsufficientBalance.class, () -> money.deductFunds(moneyToDeduct));
     }
 
 

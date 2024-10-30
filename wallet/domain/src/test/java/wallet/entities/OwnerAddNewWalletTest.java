@@ -7,7 +7,7 @@ import wallet.values.Currency;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class OwnerAddNewWallet
+public class OwnerAddNewWalletTest
 {
     private Owner owner;
 

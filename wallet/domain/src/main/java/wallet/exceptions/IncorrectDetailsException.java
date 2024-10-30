@@ -1,8 +1,8 @@
 package wallet.exceptions;
 
-public class IncorrectDetails extends EWalletException
+public class IncorrectDetailsException extends EWalletException
 {
-    public IncorrectDetails(String message)
+    public IncorrectDetailsException(String message)
     {
         super(message);
     }

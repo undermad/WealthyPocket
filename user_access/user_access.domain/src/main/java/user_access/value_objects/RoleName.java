@@ -1,6 +1,6 @@
 package user_access.value_objects;
 
-import ectimel.exceptions.NullException;
+import wallet.exceptions.NullException;
 
 public record RoleName(String value) {
     

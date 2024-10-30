@@ -1,9 +1,11 @@
 package wallet.entities;
 
-import ectimel.aggregates.AggregateRoot;
+import wallet.aggregates.AggregateRoot;
 import jakarta.persistence.*;
 import lombok.*;
 import wallet.exceptions.WalletNotFoundException;
+import wallet.factories.WalletFactory;
+import wallet.values.Currency;
 import wallet.values.OwnerId;
 import wallet.values.UserId;
 import wallet.values.WalletId;
@@ -32,15 +34,25 @@ public class Owner extends AggregateRoot<OwnerId>
         // only for hibernate
     }
 
-    @Override
-    public void validate()
+    public void addNewWallet(@NonNull Currency currency)
     {
+        wallets.add(WalletFactory.createEmptyWallet(this, currency));
+    }
+    
+    public Optional<Wallet> findWallet(@NonNull WalletId walletId)
+    {
+        return wallets.stream().filter(wallet -> wallet.getId().equals(walletId)).findAny();
+    }
 
+    public void transfer(@NonNull Wallet sendingWallet, @NonNull Wallet recievingWallet, @NonNull Money amount)
+    {
+        sendingWallet.deductFunds(amount);
+        recievingWallet.addFunds(amount);
     }
 
     public void deposit(@NonNull WalletId receiverWalletId, @NonNull Money moneyToAdd)
     {
-        var targetWallet = findOwnerWallet(receiverWalletId);
+        var targetWallet = findWallet(receiverWalletId);
 
         if (targetWallet.isEmpty()) throw new WalletNotFoundException(receiverWalletId);
 
@@ -49,17 +61,11 @@ public class Owner extends AggregateRoot<OwnerId>
 
     public void withdraw(@NonNull WalletId receiverWalletId, @NonNull Money moneyToDeduct)
     {
-        var targetWallet = findOwnerWallet(receiverWalletId);
-        
+        var targetWallet = findWallet(receiverWalletId);
+
         if(targetWallet.isEmpty()) throw new WalletNotFoundException(receiverWalletId);
 
         targetWallet.get().deductFunds(moneyToDeduct);
-
-    }
-
-    private Optional<Wallet> findOwnerWallet(WalletId walletId)
-    {
-        return wallets.stream().filter(wallet -> wallet.getId().equals(walletId)).findFirst();
     }
 
 }

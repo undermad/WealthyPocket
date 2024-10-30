@@ -1,8 +1,8 @@
 package user_access.persistence.outbox;
 
-import ectimel.message_broker.Event;
-import ectimel.outbox.OutboxRepository;
-import ectimel.utils.JsonMapper;
+import wallet.message_broker.Event;
+import wallet.outbox.OutboxRepository;
+import wallet.utils.JsonMapper;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;

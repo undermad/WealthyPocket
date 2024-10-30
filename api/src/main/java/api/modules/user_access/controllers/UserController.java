@@ -1,7 +1,7 @@
 package api.modules.user_access.controllers;
 
 import api.modules.user_access.dto.ChangePasswordRequest;
-import ectimel.cqrs.commands.CommandDispatcher;
+import wallet.cqrs.commands.CommandDispatcher;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,7 +26,7 @@ public class UserController {
     public ResponseEntity<String> changePassword(@RequestBody ChangePasswordRequest request,
                                                  @AuthenticationPrincipal CustomUserDetails customUserDetails) {
         
-        var command = new ChangePassword(customUserDetails.uuid(), request.oldPassword(), request.newPassword());
+        var command = new ChangePassword(customUserDetails.userId(), request.oldPassword(), request.newPassword());
         
         commandDispatcher.send(command);
         

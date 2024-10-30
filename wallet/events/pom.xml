@@ -9,8 +9,11 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>events</artifactId>
-
+    <artifactId>wallet.events</artifactId>
+    <packaging>jar</packaging>
+    
+    <name>wallet.events</name>
+    
     <properties>
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>

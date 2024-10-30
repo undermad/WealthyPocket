@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 import java.util.UUID;
 
 @Builder
-public record FundsTransferred(
+public record FundsTransferredEvent(
         UUID id,
         UUID sendingWallet,
         UUID receivingWalletId,

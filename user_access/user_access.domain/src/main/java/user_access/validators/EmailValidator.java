@@ -1,7 +1,7 @@
 package user_access.validators;
 
 
-import ectimel.validators.Validator;
+import wallet.validators.Validator;
 
 public class EmailValidator implements Validator<String> {
     @Override

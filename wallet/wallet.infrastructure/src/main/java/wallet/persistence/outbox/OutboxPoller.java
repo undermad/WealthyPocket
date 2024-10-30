@@ -1,30 +1,30 @@
-package user_access.persistence.outbox;
+package wallet.persistence.outbox;
 
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 import wallet.message_broker.Event;
 import wallet.message_broker.MessageBroker;
 import wallet.outbox.OutboxRepository;
 import wallet.outbox.Poller;
 import wallet.utils.JsonMapper;
-import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
 import java.util.concurrent.ExecutionException;
 
 
-@Component("userAccessOutboxPoller")
+@Component("walletOutboxPoller")
 public class OutboxPoller implements Poller {
 
     private final MessageBroker messageBroker;
-    private final OutboxRepository<UserAccessOutboxMessage> outboxRepository;
+    private final OutboxRepository<WalletOutboxMessage> outboxRepository;
 
-    public OutboxPoller(MessageBroker messageBroker, OutboxRepository<UserAccessOutboxMessage> outboxRepository) {
+    public OutboxPoller(MessageBroker messageBroker, OutboxRepository<WalletOutboxMessage> outboxRepository) {
         this.messageBroker = messageBroker;
         this.outboxRepository = outboxRepository;
     }
 
-    @Transactional("writeTransactionManagerUserAccess")
+    @Transactional("writeTransactionManagerWallet")
     @Scheduled(fixedRate = 5000L)
     public void pollSchedule() {
         poll();
@@ -36,7 +36,7 @@ public class OutboxPoller implements Poller {
         var messages = outboxRepository.getAllMessages();
         if (messages.isEmpty()) return;
         messages.forEach(message -> {
-            if (message instanceof UserAccessOutboxMessage msg) {
+            if (message instanceof WalletOutboxMessage msg) {
                 try {
                     Class<?> clazz = Class.forName(msg.getEventType());
                     var event = (Event) JsonMapper.fromJson(msg.getPayload(), clazz);

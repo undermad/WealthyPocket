@@ -1,24 +1,24 @@
-package user_access.persistence.outbox;
+package wallet.persistence.outbox;
 
-import wallet.message_broker.Event;
-import wallet.outbox.OutboxRepository;
-import wallet.utils.JsonMapper;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
+import wallet.message_broker.Event;
+import wallet.outbox.OutboxRepository;
+import wallet.utils.JsonMapper;
 
 import java.util.List;
 
 
-@Repository("userAccessOutbox")
-public class PostgresOutboxRepository implements OutboxRepository<UserAccessOutboxMessage> {
+@Repository("walletOutbox")
+public class PostgresOutboxRepository implements OutboxRepository<WalletOutboxMessage> {
 
-    @PersistenceContext(unitName = "puWriteUserAccess")
+    @PersistenceContext(unitName = "puWriteWallet")
     private EntityManager entityManager;
   
     @Override
     public void saveMessage(Event event) {
-        var message = UserAccessOutboxMessage.builder()
+        var message = WalletOutboxMessage.builder()
                 .eventId(event.getId())
                 .eventType(String.valueOf(event.getClass()).split(" ")[1])
                 .payload(JsonMapper.toJson(event))
@@ -30,14 +30,14 @@ public class PostgresOutboxRepository implements OutboxRepository<UserAccessOutb
     }
 
     @Override
-    public List<UserAccessOutboxMessage> getAllMessages() {
+    public List<WalletOutboxMessage> getAllMessages() {
         return entityManager.createQuery("""
-                    SELECT o FROM UserAccessOutboxMessage o WHERE o.processed = false
-                    """, UserAccessOutboxMessage.class).getResultList();
+                    SELECT o FROM WalletOutboxMessage o WHERE o.processed = false
+                    """, WalletOutboxMessage.class).getResultList();
     }
 
     @Override
-    public void updateMessage(UserAccessOutboxMessage message) {
+    public void updateMessage(WalletOutboxMessage message) {
         entityManager.merge(message);
     }
 

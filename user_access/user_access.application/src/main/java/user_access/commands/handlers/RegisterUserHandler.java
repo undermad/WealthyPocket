@@ -1,11 +1,11 @@
 package user_access.commands.handlers;
 
-import ectimel.outbox.OutboxMessage;
-import ectimel.outbox.OutboxRepository;
+import wallet.outbox.OutboxMessage;
+import wallet.outbox.OutboxRepository;
 import user_access.UserRegisteredEvent;
 import user_access.commands.RegisterUser;
-import ectimel.cqrs.commands.CommandHandler;
-import ectimel.cqrs.commands.Handler;
+import wallet.cqrs.commands.CommandHandler;
+import wallet.cqrs.commands.Handler;
 import user_access.entities.User;
 import user_access.exceptions.UserAlreadyExistException;
 import user_access.factories.AccountFactory;

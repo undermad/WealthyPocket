@@ -1,9 +1,9 @@
 package wallet.persistence.inbox;
 
-import ectimel.inbox.InboxRepository;
-import ectimel.message_broker.EventListener;
-import ectimel.outbox.Poller;
-import ectimel.utils.JsonMapper;
+import wallet.inbox.InboxRepository;
+import wallet.message_broker.EventListener;
+import wallet.outbox.Poller;
+import wallet.utils.JsonMapper;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;

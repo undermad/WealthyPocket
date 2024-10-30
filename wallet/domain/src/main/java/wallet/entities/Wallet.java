@@ -1,6 +1,6 @@
 package wallet.entities;
 
-import ectimel.aggregates.EntityObject;
+import wallet.aggregates.EntityObject;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -8,7 +8,6 @@ import lombok.NonNull;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 import wallet.exceptions.CurrencyDoesntMatchException;
-import wallet.exceptions.NotSufficientBalance;
 import wallet.values.Currency;
 import wallet.values.WalletId;
 
@@ -31,13 +30,15 @@ public class Wallet extends EntityObject<WalletId>
 
     @OneToMany(mappedBy = "wallet", fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     private List<Money> money;
-
+    
     protected Wallet()
     {
         // only for hibernate
     }
+    
 
-    public void addFunds(@NonNull Money moneyToAdd)
+    
+    protected void addFunds(@NonNull Money moneyToAdd)
     {
         var targetMoney = findMoneyByCurrency(moneyToAdd.getCurrencyCode());
 
@@ -50,7 +51,7 @@ public class Wallet extends EntityObject<WalletId>
         money.add(moneyToAdd);
     }
 
-    public void deductFunds(@NonNull Money moneyToDeduct)
+    protected void deductFunds(@NonNull Money moneyToDeduct)
     {
         var targetMoney = findMoneyByCurrency(moneyToDeduct.getCurrencyCode());
 

@@ -1,10 +1,10 @@
 package user_access.persistence.outbox;
 
-import ectimel.message_broker.Event;
-import ectimel.message_broker.MessageBroker;
-import ectimel.outbox.OutboxRepository;
-import ectimel.outbox.Poller;
-import ectimel.utils.JsonMapper;
+import wallet.message_broker.Event;
+import wallet.message_broker.MessageBroker;
+import wallet.outbox.OutboxRepository;
+import wallet.outbox.Poller;
+import wallet.utils.JsonMapper;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;

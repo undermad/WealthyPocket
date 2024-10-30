@@ -1,9 +1,9 @@
-package user_access.persistence.outbox;
+package wallet.persistence.outbox;
 
-import wallet.outbox.OutboxMessage;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
+import wallet.outbox.OutboxMessage;
 
 import java.time.Instant;
 import java.util.UUID;
@@ -15,7 +15,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @Entity
 @Table(name = "outbox")
-public class UserAccessOutboxMessage implements OutboxMessage {
+public class WalletOutboxMessage implements OutboxMessage {
 
     @Id
     @GeneratedValue

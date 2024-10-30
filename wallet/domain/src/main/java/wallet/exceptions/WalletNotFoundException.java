@@ -1,6 +1,5 @@
 package wallet.exceptions;
 
-import ectimel.exceptions.EWalletException;
 import wallet.values.WalletId;
 
 public class WalletNotFoundException extends EWalletException

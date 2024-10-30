@@ -1,6 +1,6 @@
 package user_access.validators;
 
-import ectimel.validators.Validator;
+import wallet.validators.Validator;
 
 public class PasswordValidator implements Validator<String> {
     

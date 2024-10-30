@@ -1,6 +1,6 @@
 package user_access.exceptions;
 
-import ectimel.exceptions.EWalletException;
+import wallet.exceptions.EWalletException;
 import user_access.value_objects.Email;
 
 public class UserAlreadyExistException extends EWalletException {

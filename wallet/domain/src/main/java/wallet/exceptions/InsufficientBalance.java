@@ -1,10 +1,8 @@
 package wallet.exceptions;
 
-import ectimel.exceptions.EWalletException;
-
-public class NotSufficientBalance extends EWalletException
+public class InsufficientBalance extends EWalletException
 {
-    public NotSufficientBalance(String message)
+    public InsufficientBalance(String message)
     {
         super(message);
     }

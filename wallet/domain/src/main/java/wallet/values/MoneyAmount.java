@@ -1,10 +1,8 @@
 package wallet.values;
 
-import ectimel.exceptions.NullException;
-import wallet.exceptions.NegativeValueException;
+import wallet.exceptions.NullException;
 
 import java.math.BigDecimal;
-import java.math.BigInteger;
 
 public record MoneyAmount(BigDecimal value)
 {

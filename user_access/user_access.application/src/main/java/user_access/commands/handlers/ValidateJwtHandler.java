@@ -1,8 +1,8 @@
 package user_access.commands.handlers;
 
 import user_access.commands.ValidateJwt;
-import ectimel.cqrs.commands.Handler;
-import ectimel.cqrs.commands.ResultCommandHandler;
+import wallet.cqrs.commands.Handler;
+import wallet.cqrs.commands.ResultCommandHandler;
 import user_access.dto.EmailDto;
 import user_access.exceptions.UnauthorizedException;
 import user_access.services.JwtProvider;

@@ -1,6 +1,6 @@
 package user_access.exceptions;
 
-import ectimel.exceptions.EWalletException;
+import wallet.exceptions.EWalletException;
 
 public class UnauthorizedException extends EWalletException {
     public UnauthorizedException(String message) {

@@ -1,9 +1,8 @@
 package wallet;
 
 
-/**
- * Unit test for simple App.
- */
+import org.springframework.boot.test.context.SpringBootTest;
+
 public class AppTest 
 {
 

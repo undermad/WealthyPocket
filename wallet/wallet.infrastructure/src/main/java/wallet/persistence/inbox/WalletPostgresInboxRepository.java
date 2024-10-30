@@ -1,9 +1,9 @@
 package wallet.persistence.inbox;
 
 
-import ectimel.inbox.InboxRepository;
-import ectimel.message_broker.Event;
-import ectimel.utils.JsonMapper;
+import wallet.inbox.InboxRepository;
+import wallet.message_broker.Event;
+import wallet.utils.JsonMapper;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;

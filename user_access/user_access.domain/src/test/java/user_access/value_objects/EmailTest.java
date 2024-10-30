@@ -1,7 +1,7 @@
 package user_access.value_objects;
 
 
-import ectimel.exceptions.ValueNotValid;
+import wallet.exceptions.ValueNotValid;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

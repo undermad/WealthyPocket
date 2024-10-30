@@ -1,6 +1,6 @@
 package user_access.policies;
 
-import ectimel.policies.Policy;
+import wallet.policies.Policy;
 import user_access.exceptions.AdultsOnlyException;
 
 import java.time.LocalDate;

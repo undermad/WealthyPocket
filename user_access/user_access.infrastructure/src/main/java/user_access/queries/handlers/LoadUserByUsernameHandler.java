@@ -1,7 +1,7 @@
 package user_access.queries.handlers;
 
-import ectimel.cqrs.queries.AsyncHandler;
-import ectimel.cqrs.queries.QueryHandler;
+import wallet.cqrs.queries.AsyncHandler;
+import wallet.cqrs.queries.QueryHandler;
 import user_access.queries.LoadUserByUsername;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

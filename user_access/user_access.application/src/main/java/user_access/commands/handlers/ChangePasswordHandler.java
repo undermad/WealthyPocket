@@ -1,7 +1,7 @@
 package user_access.commands.handlers;
 
-import ectimel.cqrs.commands.CommandHandler;
-import ectimel.cqrs.commands.Handler;
+import wallet.cqrs.commands.CommandHandler;
+import wallet.cqrs.commands.Handler;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 import user_access.commands.ChangePassword;
@@ -25,7 +25,7 @@ public class ChangePasswordHandler implements CommandHandler<ChangePassword> {
     @Override
     public void handle(ChangePassword command) {
         
-        var user = userRepository.get(new UserId(command.uuid()));
+        var user = userRepository.get(new UserId(command.userId()));
         
         if(user == null) throw new UserNotFoundException("User not found.");
         

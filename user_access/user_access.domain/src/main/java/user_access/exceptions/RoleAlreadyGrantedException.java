@@ -1,6 +1,6 @@
 package user_access.exceptions;
 
-import ectimel.exceptions.EWalletException;
+import wallet.exceptions.EWalletException;
 import user_access.entities.Role;
 
 public class RoleAlreadyGrantedException extends EWalletException {
