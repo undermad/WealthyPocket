@@ -37,13 +37,10 @@ public class TransferFundsHandler implements CommandHandler<TransferFunds>
     {
         var sendingOwner = ownerRepository.get(new UserId(command.sendingUserId()))
                 .orElseThrow(() -> new IncorrectDetailsException("Can not find sending wallet."));
-        
         var receivingOwner = ownerRepository.getByWalletId(new WalletId(command.receivingWalletId()))
                 .orElseThrow(() -> new IncorrectDetailsException("Can not find receiving wallet."));
-        
         var sendingWallet = sendingOwner.findWallet(new WalletId(command.sendingWalletId()))
                 .orElseThrow(() -> new WalletNotFoundException(new WalletId(command.sendingWalletId())));
-        
         var receivingWallet = receivingOwner.findWallet(new WalletId(command.receivingWalletId()))
                 .orElseThrow(() -> new WalletNotFoundException(new WalletId(command.receivingWalletId())));
         

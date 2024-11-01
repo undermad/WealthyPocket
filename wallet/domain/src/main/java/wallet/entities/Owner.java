@@ -1,5 +1,6 @@
 package wallet.entities;
 
+import lombok.experimental.SuperBuilder;
 import wallet.aggregates.AggregateRoot;
 import jakarta.persistence.*;
 import lombok.*;
@@ -16,7 +17,7 @@ import java.util.Optional;
 @AllArgsConstructor
 @Setter
 @Getter
-@Builder
+@SuperBuilder
 @Entity
 @Table(name = "owner")
 public class Owner extends AggregateRoot<OwnerId>
