@@ -9,7 +9,7 @@ import java.util.Collection;
 import java.util.Set;
 import java.util.UUID;
 
-public record CustomUserDetails(UUID uuid, String email, String password, Set<SimpleGrantedAuthority> roles) implements UserDetails {
+public record CustomUserDetails(UUID userId, String email, String password, Set<SimpleGrantedAuthority> roles) implements UserDetails {
 
 
     @Override

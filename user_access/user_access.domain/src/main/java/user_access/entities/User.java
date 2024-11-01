@@ -1,8 +1,7 @@
 package user_access.entities;
 
-import ectimel.aggregates.AggregateRoot;
-import ectimel.exceptions.NullException;
-import lombok.Builder;
+import wallet.aggregates.AggregateRoot;
+import wallet.exceptions.NullException;
 import lombok.experimental.SuperBuilder;
 import user_access.exceptions.RoleAlreadyGrantedException;
 import user_access.exceptions.UnauthorizedException;
@@ -42,11 +41,6 @@ public class User extends AggregateRoot<UserId> {
     
     protected User() {
         // only for hibernate
-    }
-
-    @Override
-    public void validate() {
-
     }
 
     public boolean validatePassword(Password password) {

@@ -1,7 +1,7 @@
 package api.modules.user_access.controllers;
 
 
-import ectimel.cqrs.commands.CommandDispatcher;
+import wallet.cqrs.commands.CommandDispatcher;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

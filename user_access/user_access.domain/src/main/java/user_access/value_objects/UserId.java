@@ -1,6 +1,6 @@
 package user_access.value_objects;
 
-import ectimel.exceptions.NullIdException;
+import wallet.exceptions.NullIdException;
 
 import java.io.Serializable;
 import java.util.UUID;

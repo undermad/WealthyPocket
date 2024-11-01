@@ -1,6 +1,6 @@
 package notification.persistence.inbox;
 
-import ectimel.message_broker.InboxMessage;
+import wallet.message_broker.InboxMessage;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;

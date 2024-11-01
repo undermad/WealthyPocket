@@ -7,6 +7,9 @@ import wallet.entities.Owner;
 import wallet.repositories.OwnerRepository;
 import wallet.values.OwnerId;
 import wallet.values.UserId;
+import wallet.values.WalletId;
+
+import java.util.Optional;
 
 @Repository
 public class PostgresOwnerRepository implements OwnerRepository {
@@ -15,22 +18,34 @@ public class PostgresOwnerRepository implements OwnerRepository {
     private EntityManager entityManager;
     
     @Override
-    public Owner get(OwnerId id) {
+    public Optional<Owner> get(OwnerId id) {
         var query = entityManager.createQuery("SELECT o FROM Owner o WHERE o.id = :id", Owner.class);
         query.setParameter("id", id);
 
         var result = query.getResultList();
-        return result.isEmpty() ? null : result.getFirst();
+        return result.isEmpty() ? Optional.empty() : Optional.of(result.getFirst());
     }
 
     @Override
-    public Owner get(UserId userId) {
+    public Optional<Owner> get(UserId userId) {
         var query = entityManager.createQuery("SELECT o FROM Owner o WHERE o.userId = :userId", Owner.class);
         query.setParameter("userId", userId);
         
-        var result = query.getResultList();
-        return result.isEmpty() ? null : result.getFirst(); 
+        return query.getResultStream().findFirst();
+    }
+
+    @Override
+    public Optional<Owner> getByWalletId(WalletId walletId)
+    {
+        var query = entityManager.createQuery("""
+                SELECT o FROM Owner o JOIN Wallet w ON o = w.owner
+                WHERE w.id = :walletId
+                """, Owner.class);
         
+        query.setParameter("walletId", walletId);
+        
+        var result = query.getResultStream();
+        return result.findFirst();
     }
 
     @Override

@@ -1,12 +1,11 @@
 package notification.persistence.inbox;
 
 
-import ectimel.inbox.InboxRepository;
-import ectimel.message_broker.Event;
-import ectimel.utils.JsonMapper;
+import wallet.inbox.InboxRepository;
+import wallet.message_broker.Event;
+import wallet.utils.JsonMapper;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-import notification.persistence.inbox.NotificationInboxMessage;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 

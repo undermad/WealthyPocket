@@ -23,5 +23,11 @@
             <artifactId>wallet.domain</artifactId>
             <version>${project.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>ectimel</groupId>
+            <artifactId>wallet.events</artifactId>
+            <version>${project.version}</version>
+        </dependency>
     </dependencies>
 </project>

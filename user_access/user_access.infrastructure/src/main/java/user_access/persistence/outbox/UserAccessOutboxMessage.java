@@ -1,6 +1,6 @@
 package user_access.persistence.outbox;
 
-import ectimel.outbox.OutboxMessage;
+import wallet.outbox.OutboxMessage;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;

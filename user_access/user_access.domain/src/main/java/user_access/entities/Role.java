@@ -1,7 +1,7 @@
 package user_access.entities;
 
-import ectimel.aggregates.EntityObject;
-import ectimel.exceptions.NullException;
+import wallet.aggregates.EntityObject;
+import wallet.exceptions.NullException;
 import user_access.value_objects.RoleName;
 import user_access.value_objects.RoleId;
 import jakarta.persistence.*;

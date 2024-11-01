@@ -1,6 +1,6 @@
 package user_access.persistence.inbox;
 
-import ectimel.outbox.Poller;
+import wallet.outbox.Poller;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 

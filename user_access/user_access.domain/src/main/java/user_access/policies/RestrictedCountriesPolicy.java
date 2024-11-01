@@ -1,10 +1,9 @@
 package user_access.policies;
 
-import ectimel.policies.Policy;
+import wallet.policies.Policy;
 import user_access.exceptions.CountryNotAllowed;
 
 import java.util.Arrays;
-import java.util.Locale;
 
 @Policy
 public class RestrictedCountriesPolicy implements UserPolicy {

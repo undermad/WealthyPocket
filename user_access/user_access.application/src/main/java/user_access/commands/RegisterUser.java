@@ -1,6 +1,6 @@
 package user_access.commands;
 
-import ectimel.cqrs.commands.Command;
+import wallet.cqrs.commands.Command;
 
 import java.time.LocalDate;
 

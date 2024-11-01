@@ -1,6 +1,6 @@
 package user_access.value_objects;
 
-import ectimel.exceptions.ValueNotValid;
+import wallet.exceptions.ValueNotValid;
 import user_access.validators.PasswordValidator;
 
 public record Password(String value) {

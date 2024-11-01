@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS money
 (
     id UUID PRIMARY KEY,
     wallet_id UUID,
-    amount BIGINT NOT NULL DEFAULT 0,
+    amount NUMERIC(14, 2) NOT NULL DEFAULT 0,
     currency_code VARCHAR(3) NOT NULL,
     createdon TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     updatedon TIMESTAMPTZ NOT NULL DEFAULT NOW(),

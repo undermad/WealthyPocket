@@ -1,6 +1,6 @@
 package user_access;
 
-import ectimel.message_broker.Event;
+import wallet.message_broker.Event;
 import lombok.Builder;
 
 import java.time.LocalDate;

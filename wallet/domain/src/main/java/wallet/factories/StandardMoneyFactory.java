@@ -7,6 +7,7 @@ import wallet.values.MoneyAmount;
 import wallet.values.Currency;
 import wallet.values.MoneyId;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.Locale;
@@ -27,7 +28,7 @@ public class StandardMoneyFactory implements MoneyFactory {
 
         var money = Money.builder()
                 .wallet(wallet)
-                .amount(new MoneyAmount(new BigInteger("0")))
+                .amount(new MoneyAmount(new BigDecimal("0.00")))
                 .currencyCode(new Currency(currencyCode))
                 .build();
 

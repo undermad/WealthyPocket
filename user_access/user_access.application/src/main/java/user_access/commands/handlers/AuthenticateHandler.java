@@ -1,7 +1,7 @@
 package user_access.commands.handlers;
 
-import ectimel.cqrs.commands.Handler;
-import ectimel.cqrs.commands.ResultCommandHandler;
+import wallet.cqrs.commands.Handler;
+import wallet.cqrs.commands.ResultCommandHandler;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;

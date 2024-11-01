@@ -7,17 +7,13 @@ import api.security.xss.XssSanitiserFilter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Role;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
-import org.springframework.security.config.annotation.web.configurers.CorsConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter;
-import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.security.web.header.writers.XXssProtectionHeaderWriter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
@@ -32,13 +28,11 @@ public class SecurityFilterConfiguration
 
     private final JwtAuthenticationEntryPoint authenticationEntryPoint;
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
-    private final XssSanitiserFilter xssSanitiserFilter;
 
-    public SecurityFilterConfiguration(JwtAuthenticationEntryPoint authenticationEntryPoint, JwtAuthenticationFilter jwtAuthenticationFilter, XssSanitiserFilter xssSanitiserFilter)
+    public SecurityFilterConfiguration(JwtAuthenticationEntryPoint authenticationEntryPoint, JwtAuthenticationFilter jwtAuthenticationFilter)
     {
         this.authenticationEntryPoint = authenticationEntryPoint;
         this.jwtAuthenticationFilter = jwtAuthenticationFilter;
-        this.xssSanitiserFilter = xssSanitiserFilter;
     }
 
     @Bean
@@ -66,19 +60,18 @@ public class SecurityFilterConfiguration
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception
     {
-        
-        
         http
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
-                .csrf(AbstractHttpConfigurer::disable) // <- as we use JWT authentication and state less api we dont need csrf
+                .csrf(AbstractHttpConfigurer::disable) // <- as we use JWT authentication and state less api we don't need csrf
                 .headers(headersConfigurer -> headersConfigurer
                         .xssProtection(xss -> xss.headerValue(XXssProtectionHeaderWriter.HeaderValue.ENABLED_MODE_BLOCK))
                         .contentSecurityPolicy(csp -> csp.policyDirectives("script-src 'self'")))
                 
                 .authorizeHttpRequests((authorization) -> authorization
 
-                        .requestMatchers("/api/v1/user/").hasRole("ACTIVE_USER")
-                        .anyRequest().permitAll())
+                        .requestMatchers("/api/v1/auth/**").permitAll()
+                        .requestMatchers("/api/v1/register/**").permitAll()
+                        .anyRequest().hasRole("ACTIVE_USER"))
 
                 .exceptionHandling((e) ->
                         e.authenticationEntryPoint(authenticationEntryPoint))
