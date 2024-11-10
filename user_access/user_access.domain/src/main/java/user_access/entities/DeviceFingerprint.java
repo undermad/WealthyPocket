@@ -3,20 +3,21 @@ package user_access.entities;
 import ectimel.aggregates.EntityObject;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 import user_access.value_objects.*;
 
 import java.sql.Timestamp;
 
-@Builder
+@SuperBuilder
+@Setter
 @Entity
 @Table(name = "devices_fingerprints")
 @AllArgsConstructor
-public class DeviceFingerprint extends EntityObject<DeviceFingerprintID>
-{
+public class DeviceFingerprint extends EntityObject<DeviceFingerprintID> {
 
-    protected DeviceFingerprint()
-    {
+    protected DeviceFingerprint() {
         // only for hibernate
     }
 
@@ -41,14 +42,18 @@ public class DeviceFingerprint extends EntityObject<DeviceFingerprintID>
     private OperatingSystem operatingSystem;
 
     @Embedded
-    @AttributeOverride(name = "device", column = @Column(name = "device", nullable = false))
+    @AttributeOverride(name = "value", column = @Column(name = "device", nullable = false))
     private Device device;
 
     @Column(name = "last_login", nullable = false)
     private Timestamp lastLogin;
 
-    public boolean validateFingerprint(Fingerprint fingerprint)
-    {
+    @Getter
+    @Column(name = "verified", nullable = false)
+    private boolean isVerified;
+
+
+    public boolean validateFingerprint(Fingerprint fingerprint) {
         return this.fingerprint.equals(fingerprint);
     }
 

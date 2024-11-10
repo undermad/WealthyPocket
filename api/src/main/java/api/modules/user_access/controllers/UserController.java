@@ -16,7 +16,7 @@ import user_access.dto.CustomUserDetails;
 @RequestMapping("/api/v1/user")
 public class UserController {
 
-    private CommandDispatcher commandDispatcher;
+    private final CommandDispatcher commandDispatcher;
     public UserController(CommandDispatcher commandDispatcher) {
         this.commandDispatcher = commandDispatcher;
     }

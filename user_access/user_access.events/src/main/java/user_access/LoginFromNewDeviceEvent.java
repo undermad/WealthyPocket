@@ -6,7 +6,7 @@ import lombok.Builder;
 import java.util.UUID;
 
 @Builder
-public record UserLoggedFromNewDeviceEvent(UUID id, UUID userId, String email) implements Event
+public record LoginFromNewDeviceEvent(UUID id, UUID userId, String email) implements Event
 {
     @Override
     public UUID getId()

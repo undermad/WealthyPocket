@@ -7,15 +7,17 @@ import user_access.value_objects.*;
 import jakarta.persistence.*;
 import lombok.Getter;
 
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @SuperBuilder
 @Getter
 @Entity
 @Table(name = "users")
-public class User extends AggregateRoot<UserId>
-{
+public class User extends AggregateRoot<UserId> {
 
     @Embedded
     @AttributeOverride(name = "value", column = @Column(name = "email", unique = true, nullable = false))
@@ -33,7 +35,7 @@ public class User extends AggregateRoot<UserId>
     @AttributeOverride(name = "value", column = @Column(name = "born_date", nullable = false))
     private BornDate bornDate;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<DeviceFingerprint> deviceFingerprints;
 
 
@@ -43,30 +45,46 @@ public class User extends AggregateRoot<UserId>
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
 
-    protected User()
-    {
+    protected User() {
         // only for hibernate
     }
 
     @Override
-    public void validate()
-    {
+    public void validate() {
 
     }
 
-    public void changePassword(Password newPassword)
-    {
+    public void changePassword(Password newPassword) {
         if (newPassword == null) throw new NullException("Password can not be null.");
         this.password = newPassword;
     }
 
-    public boolean isFingerprintKnew(Fingerprint fingerprint)
-    {
-        var foundDevices = deviceFingerprints.stream()
-                .filter(deviceFingerprint -> deviceFingerprint.validateFingerprint(fingerprint))
-                .toList();
-        
-        return !foundDevices.isEmpty();
+    public boolean isFingerprintKnew(Fingerprint fingerprint) {
+        if (fingerprint == null) return false;
+        var foundDevice = findDeviceFingerprint(fingerprint);
+        return foundDevice.isPresent();
     }
+
+    public boolean isFingerprintVerified(Fingerprint fingerprint) {
+        if (fingerprint == null) return false;
+        var foundDevice = findDeviceFingerprint(fingerprint);
+        return foundDevice.map(DeviceFingerprint::isVerified).orElse(false);
+
+    }
+
+    public void updateLastLogin(Fingerprint fingerprint) {
+        if (fingerprint == null) return;
+        var foundDevice = findDeviceFingerprint(fingerprint);
+        foundDevice.ifPresent(deviceFingerprint -> deviceFingerprint.setLastLogin(Timestamp.from(Instant.now())));
+    }
+
+    private Optional<DeviceFingerprint> findDeviceFingerprint(Fingerprint fingerprint) {
+        if (fingerprint == null) return Optional.empty();
+
+        return deviceFingerprints.stream()
+                .filter(deviceFingerprint -> deviceFingerprint.validateFingerprint(fingerprint))
+                .findFirst();
+    }
+
 
 }

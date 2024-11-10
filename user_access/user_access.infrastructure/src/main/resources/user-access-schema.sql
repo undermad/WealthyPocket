@@ -19,6 +19,7 @@ CREATE TABLE IF NOT EXISTS devices_fingerprints
     operating_system VARCHAR(255) NOT NULL,
     device VARCHAR(255) NOT NULL,
     last_login TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    is_verified BOOLEAN NOT NULL DEFAULT false,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
